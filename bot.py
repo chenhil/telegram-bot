@@ -4,9 +4,15 @@ import uuid
 import logging
 import importlib
 import re
-from telegram.ext import Updater, InlineQueryHandler, RegexHandler, MessageHandler, Filters
+from telegram.ext import Updater, InlineQueryHandler, MessageHandler, Filters
 
-class bot():
+# Enable logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+
+logger = logging.getLogger(__name__)
+
+class Bot():
 
     plugins = list()
 
@@ -60,4 +66,4 @@ class bot():
 
 
 if __name__ == '__main__':
-    bot = bot()
+    bot2 = Bot()

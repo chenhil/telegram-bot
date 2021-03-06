@@ -1,7 +1,7 @@
 import logging
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from telegram import ParseMode
+from telegram import ParseMode, ChatAction
 
 class PluginInterface:
 
@@ -57,7 +57,7 @@ class PluginImpl(PluginInterface):
                 return func(self, update, context)
 
             try:
-                bot.send_chat_action(
+                context.bot.send_chat_action(
                     chat_id=user_id,
                     action=ChatAction.TYPING)
             except Exception as ex:
@@ -85,36 +85,13 @@ class PluginImpl(PluginInterface):
         self.tgb.plugins.remove(self)
         logging.info(f"Plugin '{type(self).__name__}' removed")
 
-    def send_msg(self, msg, update, keywords):
-        notify = keywords.get(Keyword.NOTIFY, True)
-        quote = keywords.get(Keyword.QUOTE, None)
-        preview = keywords.get(Keyword.PREVIEW, False)
-        parse = keywords.get(Keyword.PARSE, ParseMode.MARKDOWN)
-
-        # TODO: How to simplify this?
-        if quote is None:
-            for message in utl.split_msg(msg):
-                update.message.reply_text(
-                    text=message,
-                    parse_mode=parse,
-                    disable_web_page_preview=not preview,
-                    disable_notification=not notify)
-        else:
-            for message in utl.split_msg(msg):
-                update.message.reply_text(
-                    text=message,
-                    parse_mode=parse,
-                    disable_web_page_preview=not preview,
-                    disable_notification=not notify,
-                    quote=quote)
-
     # Handle exceptions (write to log, reply to Telegram message)
     def handle_error(self, error, update, send_error=True):
         cls_name = f"Class: {type(self).__name__}"
         logging.error(f"{repr(error)} - {error} - {cls_name} - {update}")
 
         if send_error and update and update.message:
-            msg = f"{emo.ERROR} {error}"
+            msg = f"{error}"
             update.message.reply_text(msg)
 
     # Build button-menu for Telegram
@@ -132,3 +109,11 @@ class PluginImpl(PluginInterface):
     def get_sql(self, filename):
         return self.tgb.db.get_sql(filename)
 
+# Keywords for messages
+class Keyword:
+
+    NOTIFY = "notify"
+    PREVIEW = "preview"
+    QUOTE = "quote"
+    PARSE = "parse"
+    INLINE = "inline"
