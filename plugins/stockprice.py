@@ -1,10 +1,15 @@
-from telegram import ParseMode
 from plugin import PluginImpl, Keyword
 from api.iexcloud import IEXCloud
 import util.emoji as emo
-import random
+from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.ext import CallbackQueryHandler
 
 class Stockprice(PluginImpl):
+
+    def __init__(self, telegram_bot):
+        super().__init__(telegram_bot)
+        self.tgb.dispatcher.add_handler(CallbackQueryHandler(self._callback, pattern="^sp"))
+        self.symbol = ""
 
     def get_cmds(self):
         return ["sp"]
@@ -17,13 +22,25 @@ class Stockprice(PluginImpl):
                 parse_mode=ParseMode.MARKDOWN)
             return
         try:
-            response = IEXCloud().getPrice(context.args[0].upper())
-            print(response)
+            # response = IEXCloud().getPrice(context.args[0].upper())
+            # print(response)
+            self.symbol = context.args[0].upper()
+            response = self._getPrice(context.args[0].upper())
             update.message.bot.send_message(chat_id = update.effective_chat.id, 
-            text=self._getMarkdown(response), parse_mode=ParseMode.MARKDOWN_V2)
+            text=response, parse_mode=ParseMode.MARKDOWN_V2, 
+            reply_markup=self._keyboard_stats())
         except Exception as e:
             print(e)
             return self.handle_error(f"Error. Invalid symbol {context.args[0]} ", update)
+
+
+    def _getPrice(self, symbol):
+        try:
+            response = IEXCloud().getPrice(symbol)
+            return self._getMarkdown(response)
+        except Exception as e:
+            print("Some error " + e)
+            raise e
 
     def get_usage(self):
         return f"`/{self.get_cmds()[0]} <stock ticker>`\n"
@@ -33,6 +50,21 @@ class Stockprice(PluginImpl):
 
     def get_category(self):
         return None
+
+    def _callback(self, update, context):
+        print("Callback from stockprice")
+        query = update.callback_query
+
+    # CallbackQueries need to be answered, even if no notification to the user is needed
+    # Some clients may have trouble otherwise. See https://core.telegram.org/bots/api#callbackquery
+        query.answer()
+        query.edit_message_text(self._getPrice(self.symbol), parse_mode=ParseMode.MARKDOWN_V2,
+        reply_markup=self._keyboard_stats())
+
+    def _keyboard_stats(self):
+        buttons = [InlineKeyboardButton("Refresh " + emo.REFRESH, callback_data="admin_cmds")]
+        menu = self.build_menu(buttons)
+        return InlineKeyboardMarkup(menu, resize_keyboard=True)
 
     def _getMarkdown(self, response):
         output = (str('```') + "\n" + self._getSymbol(response) + "\n" 
