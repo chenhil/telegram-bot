@@ -1,9 +1,8 @@
 from telegram import ParseMode
 from plugin import PluginImpl, Keyword
-from telegram import ParseMode
 from api.coinstat import Coinstats
 
-class CoinstatAsset(PluginImpl):
+class Asset(PluginImpl):
     def get_cmds(self):
         return ["asset"]
 
@@ -16,6 +15,7 @@ class CoinstatAsset(PluginImpl):
             return
         try:
             response = Coinstats().getAsset(self, context.args[0])
+            print(context)
             print(response)
             update.message.bot.send_message(chat_id = update.effective_chat.id,
             text=self._getMarkdown(response), parse_mode=ParseMode.MARKDOWN_V2)

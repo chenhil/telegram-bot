@@ -2,7 +2,6 @@ from telegram import ParseMode
 from plugin import PluginImpl, Keyword
 from api.coinmarketcap import CoinMarketCap
 import random
-from telegram import ParseMode
 
 class Price(PluginImpl):
 
