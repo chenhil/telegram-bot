@@ -11,7 +11,6 @@ class Stockprice(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
-        print("WTF")
         if len(context.args) != 1:
             update.message.reply_text(
                 text=f"Usage:\n{self.get_usage()}",
@@ -23,6 +22,7 @@ class Stockprice(PluginImpl):
             update.message.bot.send_message(chat_id = update.effective_chat.id, 
             text=self._getMarkdown(response), parse_mode=ParseMode.MARKDOWN_V2)
         except Exception as e:
+            print(e)
             return self.handle_error(f"Error. Invalid symbol {context.args[0]} ", update)
 
     def get_usage(self):
@@ -46,11 +46,10 @@ class Stockprice(PluginImpl):
         + self._get52WKHigh(response) + "\n"
         + self._get52WKLow(response) + "\n"
         + str('```'))
-
         return output.replace(".", "\\.").replace("-", "\\-").replace("|", "\\|")
 
     def _getSymbol(self, response):
-        return "{}        ${}".format(response['symbol'], response['price'])
+        return "{0:<10} {1:<10}".format(response['symbol'], response['price'])
 
     def _getPriceToday(self, response):
         arrow = ""
@@ -59,7 +58,8 @@ class Stockprice(PluginImpl):
             response['change'] = response['change'] * -1
         else:
             arrow = emo.UP_ARROW
-        return "Today:      {}${} ({})".format(arrow, response['change'], response['changePercent'])
+        change = str(response['change']) + " (" + str(response['changePercent']) + ")"
+        return "{0:<10} {1:>8} {2:<4}".format("Today: ", change, arrow)
 
     def _getPriceExtended(self, response):
         if response['isUSMarketOpen'] is False:
@@ -69,26 +69,27 @@ class Stockprice(PluginImpl):
                 response['extendedChange'] = response['extendedChange'] * -1
             else:
                 arrow = emo.UP_ARROW            
-            return "AfterHour:  {}${} ({})".format(arrow, response['extendedChange'], response['extendedChangePercent'])
+            change = str(response['extendedChange']) + " (" + str(response['extendedChangePercent']) + ")"
+            return "{0:<10} {1:>8} {2:<4}".format("Today: ", change, arrow)
         return ""
 
     def _getOpen(self, response):
-        return "Open:       {}".format(response['open'])
+        return "{0:<10} {1:<10}".format("Open:", response['open'])
     
     def _getPriceHigh(self, response):
-        return "High:       {}".format(response['high'])
+        return "{0:<10} {1:<10}".format("High:", response['high'])
 
     def _getPriceLow(self, response):
-        return "Low:        {}".format(response['low'])
+        return "{0:<10} {1:<10}".format("Low:", response['low'])
 
     def _getVolume(self, response):
-        return "Volume:     {}".format(str(response['volume']))
+        return "{0:<10} {1:<10}".format("Volume:", response['volume'])
 
     def _getAvgVolume(self, response):
-        return "Avg Vol:    {}".format(response['avg volume'])
+        return "{0:<10} {1:<10}".format("Avg Vol:", response['avg volume'])
     
     def _get52WKHigh(self, response):
-        return "52 Wk High: {}".format(response['52weekhigh'])
+        return "{0:<10} {1:<10}".format('52WK High:', response['52weekhigh'])
 
     def _get52WKLow(self, response):
-        return "52 Wk Low:  {}".format(response['52weeklow'])
+        return "{0:<10} {1:<10}".format('52WK Low:', response['52weeklow'])

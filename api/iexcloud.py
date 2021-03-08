@@ -48,8 +48,6 @@ class IEXCloud():
         session.headers.update(headers)
         try:
             response = session.get(url)
-            print(response.status_code)
-            print(response)
             if response.status_code == 200:
                 data = json.loads(response.text)
                 return data

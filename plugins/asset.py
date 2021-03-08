@@ -30,17 +30,9 @@ class Asset(PluginImpl):
 
     def getTotalAsset(self, user, update):
         try:
-<<<<<<< HEAD
-            response = Coinstats().getAsset(self, context.args[0])
-            print(context)
-            print(response)
-            update.message.bot.send_message(chat_id = update.effective_chat.id, 
-            text=response, parse_mode=ParseMode.MARKDOWN_V2)
-=======
             response = Coinstats().getAsset(user)
             update.message.bot.send_message(chat_id = update.effective_chat.id,
             text=self._getMarkdown(response), parse_mode=ParseMode.MARKDOWN_V2)
->>>>>>> df5d83ccb50012d0603878c7acc06a128400187f
 
         except Exception as e:
             print(e)
