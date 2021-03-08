@@ -22,5 +22,7 @@ class Upcoming():
             link = a.findAll('a', {'class':'link-detail'})[1]['href']
 
             link = "https://coinmarketcal.com" + link
-            response = response + date + ": \t" + title + "\n"+link + "\n"
+
+            r = "<a href='{}'> {}  {}  </a>\n".format(link, date, title)
+            response = response + r
         return response
