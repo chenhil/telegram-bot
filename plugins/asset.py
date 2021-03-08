@@ -11,7 +11,7 @@ class Asset(PluginImpl):
         user = update.message.from_user.username
         """
         if len(context.args) != 1:
-            update.message.reply_text(
+            update.message.reply_text(  
                 text=f"Usage:\n{self.get_usage()}",
                 parse_mode=ParseMode.MARKDOWN)
             return

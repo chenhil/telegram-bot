@@ -17,22 +17,26 @@ class IEXCloud():
     def getPrice(self, symbol):
         response = {}
         data = self._getStockPriceAPI(symbol)
-        # apiJSONData = self._getCryptoPriceAPI(symbol)
-        # if apiJSONData is None or apiJSONData["status"]["error_message"] is not None: 
-        #     return response
-        # historialData = self.getHistorialData(apiJSONData["data"][symbol][0]["slug"])
-        # if len(historialData) == 0:
-        #     return response
 
-        # response["symbol"] = symbol
-        # response["price"] = historialData["price"]
-        # response["volume24"] = millify(apiJSONData["data"][symbol][-1]["quote"]["USD"]["volume_24h"], precision = 2)
-        # response["percentChange1h"] = str(round(apiJSONData["data"][symbol][-1]["quote"]["USD"]["percent_change_1h"], 2))+ "%"
-        # response["percentChange24h"] = str(round(apiJSONData["data"][symbol][-1]["quote"]["USD"]["percent_change_24h"], 2))+"%"
-        # response["percentChange7d"] = str(round(apiJSONData["data"][symbol][-1]["quote"]["USD"]["percent_change_7d"], 2))+"%"
-        # response["priceLow"] = historialData["24hourlow"]
-        # response["priceHigh"] = historialData["24hourhigh"]
-        # response["marketCap"] = millify(apiJSONData["data"][symbol][-1]["quote"]["USD"]["market_cap"], precision = 2)
+        response["symbol"] = data["symbol"]
+        response["company"] = data["companyName"]
+        response["open"] = data["open"]
+        response["low"] = data["low"]
+        response["high"] = data["high"]
+        if data['isUSMarketOpen'] is True:
+            response['price'] = data['iexRealtimePrice']
+        else:
+            response['price'] = data['extendedPrice']
+        response['volume'] = millify(data['volume'], precision = 2)
+        response['avg volume'] = millify(data['avgTotalVolume'], precision = 2)
+        response['52weekhigh'] = data['week52High']
+        response['52weeklow'] = data['week52Low']
+        response['change'] = data['change']
+        response['changePercent'] = str(round(float(data['changePercent']) * 100, 2)) + "%"
+        response['extendedChange'] = data['extendedChange']
+        response['extendedChangePercent'] = str(round(float(data['extendedChangePercent']) * 100, 2)) + "%"
+        response['isUSMarketOpen'] = data['isUSMarketOpen']
+
         return response
 
     def _getStockPriceAPI(self, symbol):
@@ -48,9 +52,8 @@ class IEXCloud():
                 data = json.loads(response.text)
                 return data
             else:
+                print(response)
                 raise Exception('Unable to find symbol {}'.format(symbol))
-        except (ConnectionError, Timeout, TooManyRedirects) as e:
+        except (ConnectionError, Timeout, TooManyRedirects, Exception) as e:
+            print(e)
             raise e 
-
-
-iexCloud = IEXCloud().getPrice("gme")
