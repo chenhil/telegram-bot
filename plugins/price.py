@@ -29,7 +29,7 @@ class Price(PluginImpl):
         return f"`/{self.get_cmds()[0]} <symbol>`\n"
 
     def get_description(self):
-        return "Get price of cryto/stock"
+        return "Get the current price of a cryto/stock"
 
     def get_category(self):
         return None

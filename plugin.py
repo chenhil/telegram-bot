@@ -105,10 +105,6 @@ class PluginImpl(PluginInterface):
 
         return menu
 
-    # Bridge to database method
-    def get_sql(self, filename):
-        return self.tgb.db.get_sql(filename)
-
 # Keywords for messages
 class Keyword:
 
