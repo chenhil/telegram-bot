@@ -4,7 +4,7 @@ from api.coinstat import Coinstats
 
 class Asset(PluginImpl):
     def get_cmds(self):
-        return ["asset"]
+        return ["a"]
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
@@ -21,6 +21,9 @@ class Asset(PluginImpl):
         else:
             if context.args[0] == 'save':
                 self.saveUser(user, context.args[1])
+            else:
+                user = context.args[0].replace("@","")
+                self.getTotalAsset(user, update)
 
 
     def _getMarkdown(self, response):
