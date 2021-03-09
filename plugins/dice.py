@@ -9,5 +9,4 @@ class Dice(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
-        if len(context.args) == 1 and context.args[0] == 2:
-            context.bot.send_dice(emoji='🎲', chat_id=update.effective_chat.id)
+        context.bot.send_dice(emoji='🎲', chat_id=update.effective_chat.id)
