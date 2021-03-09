@@ -1,9 +1,10 @@
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-import re, json
+import re, json, logging
 from millify import millify, prettify
 from bs4 import BeautifulSoup
 import configparser
+
 
 class IEXCloud():
     def __init__(self):
@@ -20,21 +21,28 @@ class IEXCloud():
 
         response["symbol"] = data["symbol"]
         response["company"] = data["companyName"]
-        response["open"] = data["open"]
-        response["low"] = data["low"]
-        response["high"] = data["high"]
+        if data['open']:
+            response["open"] = data["open"]
+        if data["low"]:
+            response["low"] = data["low"]
+        if data["high"]:
+            response["high"] = data["high"]
         if data['isUSMarketOpen'] is True:
             response['price'] = data['iexRealtimePrice']
         else:
             response['price'] = data['extendedPrice']
-        response['volume'] = millify(data['volume'], precision = 2)
+        if data['volume']:
+            response['volume'] = millify(data['volume'], precision = 2)
         response['avg volume'] = millify(data['avgTotalVolume'], precision = 2)
         response['52weekhigh'] = data['week52High']
         response['52weeklow'] = data['week52Low']
         response['change'] = data['change']
         response['changePercent'] = str(round(float(data['changePercent']) * 100, 2)) + "%"
-        response['extendedChange'] = data['extendedChange']
-        response['extendedChangePercent'] = str(round(float(data['extendedChangePercent']) * 100, 2)) + "%"
+        if data['extendedChange']:
+            print("Wtf")
+            response['extendedChange'] = data['extendedChange']
+        if data['extendedChangePercent']:
+            response['extendedChangePercent'] = str(round(float(data['extendedChangePercent']) * 100, 2)) + "%"
         response['isUSMarketOpen'] = data['isUSMarketOpen']
 
         return response
@@ -52,7 +60,6 @@ class IEXCloud():
                 data = json.loads(response.text)
                 return data
             else:
-                print(response)
                 raise Exception('Unable to find symbol {}'.format(symbol))
         except (ConnectionError, Timeout, TooManyRedirects, Exception) as e:
             print(e)

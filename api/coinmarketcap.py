@@ -20,7 +20,6 @@ class CoinMarketCap():
         historialData = self.getHistorialData(apiJSONData["data"][symbol][0]["slug"])
         if len(historialData) == 0:
             return response
-
         response["symbol"] = symbol
         response["price"] = historialData["price"]
         response["volume24"] = millify(apiJSONData["data"][symbol][-1]["quote"]["USD"]["volume_24h"], precision = 2)
