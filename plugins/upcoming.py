@@ -27,7 +27,8 @@ class Upcoming(PluginImpl):
         try:
             response = News().getEvents(ticker)
             update.message.bot.send_message(chat_id = update.effective_chat.id,
-            text=self._getMarkdown(response), parse_mode=ParseMode.MARKDOWN_V2)
+            text=response, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+
 
         except Exception as e:
             print(e)
