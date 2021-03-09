@@ -4,7 +4,7 @@ from api.upcoming import Upcoming as News
 
 class Upcoming(PluginImpl):
     def get_cmds(self):
-        return ["upcoming"]
+        return ["upcoming", "up"]
 
     @PluginImpl.send_typing
     def get_action(self, update, context):

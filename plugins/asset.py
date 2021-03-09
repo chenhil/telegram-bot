@@ -4,26 +4,20 @@ from api.coinstat import Coinstats
 
 class Asset(PluginImpl):
     def get_cmds(self):
-        return ["a"]
+        return ["a", "asset"]
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
         user = update.message.from_user.username
-        """
-        if len(context.args) != 1:
-            update.message.reply_text(  
-                text=f"Usage:\n{self.get_usage()}",
-                parse_mode=ParseMode.MARKDOWN)
-            return
-        """
+
         if len(context.args) == 0:
-            self.getTotalAsset(user, update)
+            self.getTotalAsset(user, update, True)
         else:
             if context.args[0] == 'save':
                 self.saveUser(user, context.args[1])
             else:
                 user = context.args[0].replace("@","")
-                self.getTotalAsset(user, update)
+                self.getTotalAsset(user, update, False)
 
 
     def _getMarkdown(self, response):
@@ -31,9 +25,9 @@ class Asset(PluginImpl):
             return response
         return response.replace(".", "\\.").replace("-", "\\-").replace("|", "\\|")
 
-    def getTotalAsset(self, user, update):
+    def getTotalAsset(self, user, update, clean):
         try:
-            response = Coinstats().getAsset(user)
+            response = Coinstats().getAsset(user, clean)
             update.message.bot.send_message(chat_id = update.effective_chat.id,
             text=self._getMarkdown(response), parse_mode=ParseMode.MARKDOWN_V2)
 
