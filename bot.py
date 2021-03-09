@@ -19,9 +19,9 @@ class Bot():
     def __init__(self):
         config = configparser.ConfigParser()
         config.read("./config/config.ini")
-
+        apiKey = os.getenv('apiKey') if 'apiKey' in os.environ else config['telegram']['apiKey']
         try:
-            self.updater = Updater(config['telegram']['apiKey'], use_context=True)
+            self.updater = Updater(apiKey, use_context=True)
         except Exception as e:
             exit("ERROR: Bot token not valid")
 
@@ -30,9 +30,6 @@ class Bot():
 
         # Load classes in folder 'plugins'
         self._load_plugins()
-
-        # Handler for command-links
-        # self._add_link_handler()
 
         # Start the Bot
         self.updater.start_polling()
