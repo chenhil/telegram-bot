@@ -17,7 +17,7 @@ class Save(PluginImpl):
         if len(update.message.reply_to_message.photo) != 0:
             photo = update.message.reply_to_message.photo[-1]
             newFile = update.message.bot.get_file(photo.file_id)
-            fileName = "photo" + photo.file_id
+            fileName = "photo_" + photo.file_id
         elif update.message.reply_to_message.document != None:
             document = update.message.reply_to_message.document
             newFile = update.message.bot.get_file(document.file_id)
