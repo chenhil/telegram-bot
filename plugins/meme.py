@@ -12,6 +12,7 @@ class Meme(PluginImpl):
         with open('./config/file_id.txt', "r") as f:
             lines = [line.rstrip() for line in f]
             filename = random.choice(lines)
+            print(filename)
             if "document" in filename:
                 update.message.bot.send_animation(chat_id = update.effective_chat.id, animation=filename.replace("document_", ""))
             else:

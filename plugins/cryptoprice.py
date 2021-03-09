@@ -49,8 +49,6 @@ class Cryptoprice(PluginImpl):
                 raise Exception("Invalid crypto symbol")
             responseCMC = CoinMarketCap().getPrice(coinSymbol['symbol'].upper())
             responseGecko = CoinGecko().getPrice(coinSymbol['id'])
-            print(responseCMC)
-            print(responseGecko)
             output = (self._getMarkdown(responseCMC)
             + "`via CoinMarketCap`"
             + "\n\n"
