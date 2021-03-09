@@ -6,14 +6,13 @@ class Coinstats():
     def __init__(self):
         print("fuck thuan")
 
-    def getAsset(self, user):
+    def getAsset(self, user, clean):
         url = self.findUserData(user)
         r = requests.get(url)
         bsObj = BeautifulSoup(r.text, 'html.parser')
         totalAsset = bsObj.find('span', {'class': 'main-price'})['title']
 
         oldAsset = self.findUserAsset(user)
-
 
         if oldAsset is not None:
             currentAsset = totalAsset.replace("$","").replace(",", "")
@@ -24,7 +23,9 @@ class Coinstats():
             totalAsset = totalAsset + '  -  ' +  changes
 
         response = user + '\n' + 'Total: ' + str(totalAsset) + '\n'
-        self.saveAsset(user, totalAsset)
+
+        if(clean):
+            self.saveAsset(user, totalAsset)
 
         coins = bsObj.find('div', {'class': 'coins-container'}).ul
 
