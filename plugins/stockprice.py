@@ -3,12 +3,14 @@ from api.iexcloud import IEXCloud
 import util.emoji as emo
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
+import logging
+
 
 class Stockprice(PluginImpl):
 
     def __init__(self, telegram_bot):
         super().__init__(telegram_bot)
-        self.tgb.dispatcher.add_handler(CallbackQueryHandler(self._callback, pattern="^sp"))
+        self.tgb.dispatcher.add_handler(CallbackQueryHandler(self._callback, pattern="stockprice"))
         self.symbol = ""
 
     def get_cmds(self):
@@ -52,17 +54,16 @@ class Stockprice(PluginImpl):
         return None
 
     def _callback(self, update, context):
-        print("Callback from stockprice")
         query = update.callback_query
-
-    # CallbackQueries need to be answered, even if no notification to the user is needed
-    # Some clients may have trouble otherwise. See https://core.telegram.org/bots/api#callbackquery
         query.answer()
-        query.edit_message_text(self._getPrice(self.symbol), parse_mode=ParseMode.MARKDOWN_V2,
-        reply_markup=self._keyboard_stats())
+        try:
+            query.edit_message_text(self._getPrice(query.message.text.split(' ')[0]), parse_mode=ParseMode.MARKDOWN_V2,
+            reply_markup=self._keyboard_stats())
+        except Exception as e:
+            logging.error("Unable to update message "  + e)
 
     def _keyboard_stats(self):
-        buttons = [InlineKeyboardButton("Refresh " + emo.REFRESH, callback_data="admin_cmds")]
+        buttons = [InlineKeyboardButton("Refresh " + emo.REFRESH, callback_data="stockprice")]
         menu = self.build_menu(buttons)
         return InlineKeyboardMarkup(menu, resize_keyboard=True)
 

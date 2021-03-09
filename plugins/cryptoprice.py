@@ -1,14 +1,17 @@
 from plugin import PluginImpl, Keyword
 from api.coinmarketcap import CoinMarketCap
+from api.coingecko import CoinGecko
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
 import util.emoji as emo
+import logging, traceback 
+
 
 class Cryptoprice(PluginImpl):
 
     def __init__(self, telegram_bot):
         super().__init__(telegram_bot)
-        self.tgb.dispatcher.add_handler(CallbackQueryHandler(self._callback2))
+        self.tgb.dispatcher.add_handler(CallbackQueryHandler(self._callback, pattern='cryptoprice'))
         self.symbol = ""
 
     def get_cmds(self):
@@ -22,13 +25,12 @@ class Cryptoprice(PluginImpl):
                 parse_mode=ParseMode.MARKDOWN)
             return
         try:
-            self.symbol = context.args[0].upper()
-            response = self._getPrice(self.symbol)
+            response = self._getPrice(context.args[0])
             update.message.bot.send_message(chat_id = update.effective_chat.id, 
             text=response, parse_mode=ParseMode.MARKDOWN_V2, 
             reply_markup=self._keyboard_stats())
         except Exception as e:
-            print(e)
+            print(traceback.print_exc())
             return self.handle_error(f"Error. Invalid symbol {context.args[0].upper()} ", update)
 
     def get_usage(self):
@@ -42,21 +44,36 @@ class Cryptoprice(PluginImpl):
 
     def _getPrice(self, symbol):
         try:
-            response = CoinMarketCap().getPrice(symbol)
-            return self._getMarkdown(response)
+            coinSymbol = CoinGecko().getCoinList(symbol)
+            if coinSymbol is None:
+                raise Exception("Invalid crypto symbol")
+            responseCMC = CoinMarketCap().getPrice(coinSymbol['symbol'].upper())
+            responseGecko = CoinGecko().getPrice(coinSymbol['id'])
+            print(responseCMC)
+            print(responseGecko)
+            output = (self._getMarkdown(responseCMC)
+            + "`via CoinMarketCap`"
+            + "\n\n"
+            + self._getMarkdown(responseGecko)
+            + "`via CoinGecko`")
+            return output
         except Exception as e:
             print(e)
             raise e        
 
-    def _callback2(self, update, context):
-        print("Callback from cryptoprice")
+    def _callback(self, update, context):
         query = update.callback_query
         query.answer()
-        query.edit_message_text(self._getPrice(self.symbol), parse_mode=ParseMode.MARKDOWN_V2,
-        reply_markup=self._keyboard_stats())
+        try:
+            symbol = query.message.text.split(' ')[0]
+
+            query.edit_message_text(self._getPrice(symbol), parse_mode=ParseMode.MARKDOWN_V2,
+            reply_markup=self._keyboard_stats())
+        except Exception as e:
+            logging.error("Unable to update message")
 
     def _keyboard_stats(self):
-        buttons = [InlineKeyboardButton("Refresh " + emo.REFRESH, callback_data="admin_cmds")]
+        buttons = [InlineKeyboardButton("Refresh " + emo.REFRESH, callback_data="cryptoprice")]
         menu = self.build_menu(buttons)
         return InlineKeyboardMarkup(menu, resize_keyboard=True)
 
@@ -76,7 +93,11 @@ class Cryptoprice(PluginImpl):
         return self._formatRow(response['symbol'], response['price'])
 
     def _getPercentChange1h(self, response):
-        return self._formatRow("1h:", response['percentChange1h'])
+        if 'percentChange1h' in response:
+            return self._formatRow("1h:", response['percentChange1h'])
+        else:
+            return ""
+        
     
     def _getPercentChange24h(self, response):
         return self._formatRow("24h:", response['percentChange24h'])

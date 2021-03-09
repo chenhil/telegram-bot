@@ -11,6 +11,8 @@ beautifulsoup4 = "*"
 pyrh = "*"
 robin-stocks = "*"
 plexapi = "*"
+yfinance = "*"
+pycoingecko = "*"
 
 [dev-packages]
 

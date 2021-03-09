@@ -22,7 +22,6 @@ class IEXCloud():
         response["symbol"] = data["symbol"]
         response["company"] = data["companyName"]
         if data['open']:
-            print("Wtf")
             response["open"] = data["open"]
         if data["low"]:
             response["low"] = data["low"]
