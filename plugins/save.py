@@ -23,7 +23,7 @@ class Save(PluginImpl):
             newFile = update.message.bot.get_file(document.file_id)
             fileName = "document_" + document.file_id
         with open("./config/file_id.txt", "a") as myfile:
-            myfile.write(fileName)
+            myfile.write(fileName + "\n")
         
     def get_usage(self):
         return f"`reply to a image/gif with /{self.get_cmds()[0]}`\n"
