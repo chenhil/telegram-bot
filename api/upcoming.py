@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 class Upcoming():
     def __init__(self):
-        print("fuck thuan")
+        pass
 
     def getEvents(self, ticker):
         url = 'https://coinmarketcal.com/en/?form%5Bdate_range%5D=08%2F03%2F2021+-+01%2F08%2F2024&form%5Bkeyword%5D=' + ticker
