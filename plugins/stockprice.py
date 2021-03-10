@@ -11,7 +11,6 @@ class Stockprice(PluginImpl):
     def __init__(self, telegram_bot):
         super().__init__(telegram_bot)
         self.tgb.dispatcher.add_handler(CallbackQueryHandler(self._callback, pattern="stockprice"))
-        self.symbol = ""
 
     def get_cmds(self):
         return ["sp"]
@@ -24,8 +23,7 @@ class Stockprice(PluginImpl):
                 parse_mode=ParseMode.MARKDOWN)
             return
         try:
-            self.symbol = context.args[0].upper()
-            response = self._get_stock_data(self.symbol)
+            response = self._get_stock_data(context.args[0].upper())
             update.message.bot.send_message(chat_id = update.effective_chat.id, 
             text=response, parse_mode=ParseMode.MARKDOWN_V2, 
             reply_markup=self._keyboard_stats())
@@ -37,7 +35,7 @@ class Stockprice(PluginImpl):
     def _get_stock_data(self, symbol):
         try:
             stocksg = YahooStocksG()
-            stock_data = stocksg.get_data(self.symbol)
+            stock_data = stocksg.get_data(symbol)
             return self._getMarkdown(stock_data)
         except Exception as e:
             print("Some error " + e)
@@ -56,7 +54,8 @@ class Stockprice(PluginImpl):
         query = update.callback_query
         query.answer()
         try:
-            query.edit_message_text(self._get_stock_data(query.message.text.split(' ')[0]), parse_mode=ParseMode.MARKDOWN_V2,
+            symbol = query.message.text.split()[1]
+            query.edit_message_text(self._get_stock_data(symbol), parse_mode=ParseMode.MARKDOWN_V2,
             reply_markup=self._keyboard_stats())
         except Exception as e:
             logging.error("Unable to update message "  + e)
