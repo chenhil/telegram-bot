@@ -4,7 +4,7 @@ import util.emoji as emo
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
 import logging
-
+from api.stocksg import YahooStocksG
 
 class Stockprice(PluginImpl):
 
@@ -24,10 +24,8 @@ class Stockprice(PluginImpl):
                 parse_mode=ParseMode.MARKDOWN)
             return
         try:
-            # response = IEXCloud().getPrice(context.args[0].upper())
-            # print(response)
             self.symbol = context.args[0].upper()
-            response = self._getPrice(context.args[0].upper())
+            response = self._get_stock_data(self.symbol)
             update.message.bot.send_message(chat_id = update.effective_chat.id, 
             text=response, parse_mode=ParseMode.MARKDOWN_V2, 
             reply_markup=self._keyboard_stats())
@@ -36,10 +34,11 @@ class Stockprice(PluginImpl):
             return self.handle_error(f"Error. Invalid symbol {context.args[0]} ", update)
 
 
-    def _getPrice(self, symbol):
+    def _get_stock_data(self, symbol):
         try:
-            response = IEXCloud().getPrice(symbol)
-            return self._getMarkdown(response)
+            stocksg = YahooStocksG()
+            stock_data = stocksg.get_data(self.symbol)
+            return self._getMarkdown(stock_data)
         except Exception as e:
             print("Some error " + e)
             raise e
@@ -57,7 +56,7 @@ class Stockprice(PluginImpl):
         query = update.callback_query
         query.answer()
         try:
-            query.edit_message_text(self._getPrice(query.message.text.split(' ')[0]), parse_mode=ParseMode.MARKDOWN_V2,
+            query.edit_message_text(self._get_stock_data(query.message.text.split(' ')[0]), parse_mode=ParseMode.MARKDOWN_V2,
             reply_markup=self._keyboard_stats())
         except Exception as e:
             logging.error("Unable to update message "  + e)
@@ -67,62 +66,71 @@ class Stockprice(PluginImpl):
         menu = self.build_menu(buttons)
         return InlineKeyboardMarkup(menu, resize_keyboard=True)
 
-    def _getMarkdown(self, response):
-        output = (str('```') + "\n" + self._getSymbol(response) + "\n" 
-        + self._getPriceToday(response) + "\n"
-        + self._getPriceExtended(response) + "\n"
-        + self._getOpen(response) + "\n"
-        + self._getPriceHigh(response) + "\n"
-        + self._getPriceLow(response) + "\n"
-        + self._getVolume(response) + "\n"
-        + self._getAvgVolume(response) + "\n"
-        + self._get52WKHigh(response) + "\n"
-        + self._get52WKLow(response) + "\n"
-        + str('```'))
+    def _getMarkdown(self, stock_data):
+        output = ""
+        try:
+            output = "\n" + self._getSymbol(stock_data) + "\n" \
+            + self._getPriceRegularHours(stock_data) + "\n"
+            
+            if stock_data['has_post_market_data']:
+                output += self._getPriceAfterHours(stock_data) + "\n"
+        
+            output += self._getOpen(stock_data) + "\n" \
+            + self._getPriceHigh(stock_data) + "\n" \
+            + self._getPriceLow(stock_data) + "\n" \
+            + self._getVolume(stock_data) + "\n" \
+            + self._getAvgVolume(stock_data) + "\n" \
+            + self._get52WKHigh(stock_data) + "\n" \
+            + self._get52WKLow(stock_data) + "\n"
+        except Exception as err:
+            print(err)
+
         return output.replace(".", "\\.").replace("-", "\\-").replace("|", "\\|")
 
-    def _getSymbol(self, response):
-        return "{0:<10} {1:<10}".format(response['symbol'], response['price'])
+    def _getSymbol(self, stock_data):
+        return "{0:<10} {1:<10}".format(stock_data['symbol'], stock_data['symbol'])
 
-    def _getPriceToday(self, response):
+    def _get_change_arrow_emoji(self, stock_data, key):
         arrow = ""
-        if "-" in str(response['change']):
+        if "-" in str(stock_data[key]):
             arrow = emo.DOWN_ARROW
-            response['change'] = response['change'] * -1
         else:
             arrow = emo.UP_ARROW
-        change = str(response['change']) + " (" + str(response['changePercent']) + ")"
-        return "{0:<10} {1:>8} {2:<4}".format("Today: ", change, arrow)
+        return arrow
 
-    def _getPriceExtended(self, response):
-        if response['isUSMarketOpen'] is False:
-            arrow = ""
-            if "-" in str(response['extendedChange']):
-                arrow = emo.DOWN_ARROW
-                response['extendedChange'] = response['extendedChange'] * -1
-            else:
-                arrow = emo.UP_ARROW            
-            change = str(response['extendedChange']) + " (" + str(response['extendedChangePercent']) + ")"
-            return "{0:<10} {1:>8} {2:<4}".format("Today: ", change, arrow)
+    def _getPrice(self, stock_data, market_hours):
+        price_key = market_hours + '_price'
+        price_percent_key = market_hours + '_change_percent'
+        arrow = self._get_change_arrow_emoji(stock_data, price_percent_key)
+        price_string = stock_data[price_key] \
+        + " \(" + stock_data[price_percent_key] + "\)"
+        return "{0:<10} {1:>8} {2:<4}".format("Price: ", price_string, arrow)
+
+    def _getPriceRegularHours(self, stock_data):
+        return self._getPrice(stock_data, 'regular_market')
+
+    def _getPriceAfterHours(self, stock_data):
+        if stock_data['has_post_market_data'] is True:
+            return self._getPrice(stock_data, 'post_market').replace("Price", "After-Hours Price")
         return ""
 
-    def _getOpen(self, response):
-        return "{0:<10} {1:<10}".format("Open:", response['open'])
+    def _getOpen(self, stock_data):
+        return "{0:<10} {1:<10}".format("Open:", stock_data['market_open_price'])
     
-    def _getPriceHigh(self, response):
-        return "{0:<10} {1:<10}".format("High:", response['high'])
+    def _getPriceHigh(self, stock_data):
+        return "{0:<10} {1:<10}".format("High:", stock_data['regular_market_high'])
 
-    def _getPriceLow(self, response):
-        return "{0:<10} {1:<10}".format("Low:", response['low'])
+    def _getPriceLow(self, stock_data):
+        return "{0:<10} {1:<10}".format("Low:", stock_data['regular_market_low'])
 
-    def _getVolume(self, response):
-        return "{0:<10} {1:<10}".format("Volume:", response['volume'])
+    def _getVolume(self, stock_data):
+        return "{0:<10} {1:<10}".format("Volume:", stock_data['regular_market_volume'])
 
-    def _getAvgVolume(self, response):
-        return "{0:<10} {1:<10}".format("Avg Vol:", response['avg volume'])
+    def _getAvgVolume(self, stock_data):
+        return "{0:<10} {1:<10}".format("Avg Vol:", stock_data['average_volume'])
     
-    def _get52WKHigh(self, response):
-        return "{0:<10} {1:<10}".format('52WK High:', response['52weekhigh'])
+    def _get52WKHigh(self, stock_data):
+        return "{0:<10} {1:<10}".format('52WK High:', stock_data['fifty_two_week_high'])
 
-    def _get52WKLow(self, response):
-        return "{0:<10} {1:<10}".format('52WK Low:', response['52weeklow'])
+    def _get52WKLow(self, stock_data):
+        return "{0:<10} {1:<10}".format('52WK Low:', stock_data['fifty_two_week_low'])
