@@ -69,26 +69,27 @@ class Stockprice(PluginImpl):
     def _getMarkdown(self, stock_data):
         output = ""
         try:
-            output = "\n" + self._getSymbol(stock_data) + "\n" \
+            output = (str('```')) + "\n" + self._getSymbol(stock_data) + "\n" \
+            + "Market Prices" + "\n" \
             + self._getPriceRegularHours(stock_data) + "\n"
-            
+
             if stock_data['has_post_market_data']:
                 output += self._getPriceAfterHours(stock_data) + "\n"
-        
+    
             output += self._getOpen(stock_data) + "\n" \
             + self._getPriceHigh(stock_data) + "\n" \
             + self._getPriceLow(stock_data) + "\n" \
             + self._getVolume(stock_data) + "\n" \
             + self._getAvgVolume(stock_data) + "\n" \
             + self._get52WKHigh(stock_data) + "\n" \
-            + self._get52WKLow(stock_data) + "\n"
+            + self._get52WKLow(stock_data) + "\n" + (str('```'))
         except Exception as err:
             print(err)
 
         return output.replace(".", "\\.").replace("-", "\\-").replace("|", "\\|")
 
     def _getSymbol(self, stock_data):
-        return "{0:<10} {1:<10}".format(stock_data['symbol'], stock_data['symbol'])
+        return "{0:<10} {1:<10}".format("Symbol: ", stock_data['symbol'])
 
     def _get_change_arrow_emoji(self, stock_data, key):
         arrow = ""
@@ -104,14 +105,14 @@ class Stockprice(PluginImpl):
         arrow = self._get_change_arrow_emoji(stock_data, price_percent_key)
         price_string = stock_data[price_key] \
         + " \(" + stock_data[price_percent_key] + "\)"
-        return "{0:<10} {1:>8} {2:<4}".format("Price: ", price_string, arrow)
+        return "{0:>8} {1:<4}".format(price_string, arrow)
 
     def _getPriceRegularHours(self, stock_data):
-        return self._getPrice(stock_data, 'regular_market')
+        return "{0:<10} {1:<10}".format("Regular: ", self._getPrice(stock_data, 'regular_market'))
 
     def _getPriceAfterHours(self, stock_data):
         if stock_data['has_post_market_data'] is True:
-            return self._getPrice(stock_data, 'post_market').replace("Price", "After-Hours Price")
+            return "{0:<10} {1:<10}".format("After: ", self._getPrice(stock_data, 'post_market'))
         return ""
 
     def _getOpen(self, stock_data):
