@@ -72,7 +72,7 @@ class Stockprice(PluginImpl):
             + "Market Prices" + "\n" \
             + self._getPriceRegularHours(stock_data) + "\n"
 
-            if stock_data['has_post_market_data']:
+            if 'has_post_market_data' in stock_data:
                 output += self._getPriceAfterHours(stock_data) + "\n"
     
             output += self._getOpen(stock_data) + "\n" \
