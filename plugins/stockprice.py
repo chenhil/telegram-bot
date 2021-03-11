@@ -1,5 +1,4 @@
 from plugin import PluginImpl, Keyword
-from api.iexcloud import IEXCloud
 import util.emoji as emo
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
@@ -28,7 +27,7 @@ class Stockprice(PluginImpl):
             text=response, parse_mode=ParseMode.MARKDOWN_V2, 
             reply_markup=self._keyboard_stats())
         except Exception as e:
-            print(e)
+            logging.error(e)
             return self.handle_error(f"Error. Invalid symbol {context.args[0]} ", update)
 
 
