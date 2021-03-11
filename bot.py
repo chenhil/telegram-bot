@@ -5,8 +5,6 @@ import logging
 import importlib
 import re
 from telegram.ext import Updater, InlineQueryHandler, MessageHandler, Filters
-
-import os
 import psycopg2
 
 # Enable logging
@@ -32,7 +30,7 @@ class Bot():
         self.dispatcher = self.updater.dispatcher
 
         # connect DB
-        self.connectDB()
+        self.connectDB(config)
 
         # Load classes in folder 'plugins'
         self._load_plugins()
@@ -67,11 +65,10 @@ class Bot():
             msg = f"File '{file}' can't be loaded as a plugin: {ex}"
             logging.warning(msg)
 
-    def connectDB(self):
+    def connectDB(self, config):
         try:
-            connection = psycopg2.connect(
-            "postgres://whkrhdwpenhhym:598bb25bd018891284d02f939948b0b25a06df4508c251143f98fe1671a12f43@ec2-54-164-22-242.compute-1.amazonaws.com:5432/d5i6go6su3sf1h",
-            sslmode='require')
+            dbKey = os.getenv('DATABASE_URL') if 'DATABASE_URL' in os.environ else config['postgreSQL']['DATABASE_URL']
+            connection = psycopg2.connect(dbKey,sslmode='require')
             cursor = connection.cursor()
             # Print PostgreSQL details
             print("PostgreSQL server information")
