@@ -1,7 +1,13 @@
 from pycoingecko import CoinGeckoAPI
 from millify import millify, prettify
+import logging, time
+
+
 
 class CoinGecko():
+
+    coinMarketData = dict()
+
     def __init__(self):
         self.cg = CoinGeckoAPI()
 
@@ -28,10 +34,28 @@ class CoinGecko():
     
         return responseJson
         
-    
     def getCoinList(self, symbol):
         data = self.cg.get_coins_list()
         for item in data:
             if symbol.upper() == item['name'].upper() or symbol.upper() == item['symbol'].upper():
                 return item
         return None
+
+    
+    def getMarketData(self):
+        try:
+            CoinGecko().coinMarketData['usd'] = self._chunks(self._getMarketData("usd"), 10)
+            CoinGecko().coinMarketData['btc'] = self._chunks(self._getMarketData("btc"), 10)
+            CoinGecko().coinMarketData['eth'] = self._chunks(self._getMarketData("eth"), 10)
+        except Exception as e:
+            raise e
+
+    def _getMarketData(self, vsCurrency):
+        try:
+            data = self.cg.get_coins_markets(vs_currency = vsCurrency, price_change_percentage='24h,7d,30d')
+            return data
+        except Exception as e:
+            logging.error(e)
+            raise e
+
+    def _chunks(self, l, n): return [l[x: x+n] for x in range(0, len(l), n)]
