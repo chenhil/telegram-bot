@@ -13,6 +13,8 @@ robin-stocks = "*"
 plexapi = "*"
 yfinance = "*"
 pycoingecko = "*"
+asyncio = "*"
+aiohttp = "*"
 psycopg2 = "*"
 
 [dev-packages]
