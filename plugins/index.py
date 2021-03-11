@@ -110,7 +110,7 @@ class Index(PluginImpl):
         return output
 
     def _formatRow(self, *args):
-        return '{0:<3} {1:<8} {2:>10} {3:>10}'.format(*args)
+        return '{0:<3} {1:<5} {2:>8} {3:>8}'.format(*args)
         
     def _float_to_string(self, number, precision=8):
         return '{0:.{prec}f}'.format(
