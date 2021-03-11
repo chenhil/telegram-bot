@@ -44,7 +44,7 @@ class YahooStocksG(StocksG):
         return self.stock_data
 
     def _make_url(self):
-        return f"{self._hostname}/quote/{self.stock_symbol}?p={self.stock_symbol}"
+        return f"{self._hostname}/quote/{self.stock_symbol}"
 
     def _parse_stock_data(self, raw_data):
         try:
@@ -53,64 +53,66 @@ class YahooStocksG(StocksG):
             self.__write_to_log(self.all_data)
 
             parsed_data = dict()
-            price = self.all_data['price']
-            company_summary = self.all_data['summaryProfile']
-            summary_detail = self.all_data['summaryDetail']
+            price = self._get_if_exist(self.all_data, ['price'])
+            company_summary = self._get_if_exist(self.all_data, ['summaryProfile'])
+            summary_detail = self._get_if_exist(self.all_data, ['summaryDetail'])
             
-            has_pre_market_hours = False
-            has_post_market_hours = False
+            has_pre_market_data = False
+            has_post_market_data = False
 
-            if 'fmt' in price['preMarketPrice']:
-                parsed_data['has_pre_market_data'] = True
-                has_pre_market_hours = True
-            else:
-                parsed_data['has_pre_market_data'] = False
-            if 'fmt' in price['postMarketPrice']:
-                parsed_data['has_post_market_data'] = True
-                has_post_market_hours = True
-            else:
-                has_post_market_hours = False
+            if 'fmt' in self._get_if_exist(price, ['preMarketPrice']):
+                has_pre_market_data = True
+            if 'fmt' in self._get_if_exist(price, ['postMarketPrice']):
+                has_post_market_data = True
 
-            parsed_data['symbol']                         = self.all_data['symbol']
-            parsed_data['company_short_name']             = price['shortName']
-            parsed_data['company_long_name']              = price['longName']
+            parsed_data['has_pre_market_data'] = has_pre_market_data
+            parsed_data['has_post_market_data'] = has_post_market_data
+
+
+            parsed_data['symbol']                         = self._get_if_exist(self.all_data, ['symbol'])
+            parsed_data['company_short_name']             = self._get_if_exist(price, ['shortName'])
+            parsed_data['company_long_name']              = self._get_if_exist(price, ['longName'])
             parsed_data['company_profile'] = {
-                'market_cap': price['marketCap']['fmt'],
-                'sector': company_summary['sector'],
-                'full_time_employees': company_summary['fullTimeEmployees'],
-                'city': company_summary['city'],
-                'state': company_summary['state'],
-                'country': company_summary['country'],
-                'website': company_summary['website'],
-                'summary': company_summary['longBusinessSummary'],
+                'market_cap': self._get_if_exist(price, ['marketCap', 'fmt']),
+                'sector': self._get_if_exist(company_summary, ['sector']),
+                'full_time_employees': self._get_if_exist(company_summary, ['fullTimeEmployees']),
+                'city': self._get_if_exist(company_summary, ['city']),
+                'state': self._get_if_exist(company_summary, ['state']),
+                'country': self._get_if_exist(company_summary, ['country']),
+                'website': self._get_if_exist(company_summary, ['website']),
+                'summary': self._get_if_exist(company_summary, ['longBusinessSummary']),
             }
-            parsed_data['currency_symbol']                 = price['currencySymbol']
-            parsed_data['regular_market_price']           = price['regularMarketPrice']['fmt']
-            if has_pre_market_hours:
-                parsed_data['pre_market_price']           = price['preMarketPrice']['fmt']
-            if has_post_market_hours:
-                parsed_data['post_market_price']          = price['postMarketPrice']['fmt']
-            if 'fmt' in price['regularMarketOpen']:
-                parsed_data['market_open_price']          = price['regularMarketOpen']['fmt']
-            parsed_data['regular_market_low']             = price['regularMarketDayLow']['fmt']
-            parsed_data['regular_market_high']            = price['regularMarketDayHigh']['fmt']
-            parsed_data['regular_market_volume']          = price['regularMarketVolume']['fmt']
-            parsed_data['regular_market_change']          = price['regularMarketChange']['fmt']
-            parsed_data['regular_market_change_percent']  = price['regularMarketChangePercent']['fmt']
-            if has_post_market_hours:
-                parsed_data['post_market_change']         = price['postMarketChange']['fmt']
-            if has_post_market_hours:
-                parsed_data['post_market_change_percent'] = price['postMarketChangePercent']['fmt']
-            parsed_data['average_volume']                 = summary_detail['averageVolume']['fmt']
-            parsed_data['fifty_two_week_low']             = summary_detail['fiftyTwoWeekLow']['fmt']
-            parsed_data['fifty_two_week_high']            = summary_detail['fiftyTwoWeekHigh']['fmt']
+            parsed_data['currency_symbol']                = self._get_if_exist(price, ['currencySymbol'])
+            parsed_data['regular_market_price']           = self._get_if_exist(price, ['regularMarketPrice', 'fmt'])
+            parsed_data['pre_market_price']               = self._get_if_exist(price, ['preMarketPrice', 'fmt'])
+            parsed_data['post_market_price']              = self._get_if_exist(price, ['postMarketPrice', 'fmt'])
+            parsed_data['market_open_price']              = self._get_if_exist(price, ['regularMarketOpen', 'fmt'])
+            parsed_data['regular_market_low']             = self._get_if_exist(price, ['regularMarketDayLow', 'fmt'])
+            parsed_data['regular_market_high']            = self._get_if_exist(price, ['regularMarketDayHigh', 'fmt'])
+            parsed_data['regular_market_volume']          = self._get_if_exist(price, ['regularMarketVolume', 'fmt'])
+            parsed_data['regular_market_change']          = self._get_if_exist(price, ['regularMarketChange', 'fmt'])
+            parsed_data['regular_market_change_percent']  = self._get_if_exist(price, ['regularMarketChangePercent', 'fmt'])
+            parsed_data['post_market_change']             = self._get_if_exist(price, ['postMarketChange', 'fmt'])
+            parsed_data['post_market_change_percent']     = self._get_if_exist(price, ['postMarketChangePercent', 'fmt'])
+            parsed_data['average_volume']                 = self._get_if_exist(summary_detail, ['averageVolume', 'fmt'])
+            parsed_data['fifty_two_week_low']             = self._get_if_exist(summary_detail, ['fiftyTwoWeekLow', 'fmt'])
+            parsed_data['fifty_two_week_high']            = self._get_if_exist(summary_detail, ['fiftyTwoWeekHigh', 'fmt'])
 
             self.stock_data = parsed_data
         except ValueError as err:
             print("Decoding JSON has failed:")
             print(err)
 
-    
+    def _get_if_exist(self, map, keys):
+        obj = map
+        for key in keys:
+            if key in obj:
+                obj = obj[key]
+            else:
+                return ""
+
+        return obj
+
     def __write_to_log(self, jsonObj):
         try:
             file_name = "logs.txt"

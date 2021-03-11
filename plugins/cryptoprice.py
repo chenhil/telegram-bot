@@ -20,9 +20,13 @@ class Cryptoprice(PluginImpl):
     @PluginImpl.send_typing
     def get_action(self, update, context):
         if len(context.args) != 1:
-            update.message.reply_text(
-                text=f"Usage:\n{self.get_usage()}",
-                parse_mode=ParseMode.MARKDOWN)
+            # update.message.reply_text(
+            #     text=f"Usage:\n{self.get_usage()}",
+            #     parse_mode=ParseMode.MARKDOWN)
+            response = self._getPrice('btc') + "\n\n" + self._getPrice('eth')
+            update.message.bot.send_message(chat_id = update.effective_chat.id, 
+            text=response, parse_mode=ParseMode.MARKDOWN_V2, 
+            reply_markup=self._keyboard_stats())
             return
         try:
             response = self._getPrice(context.args[0])
@@ -76,15 +80,23 @@ class Cryptoprice(PluginImpl):
         return InlineKeyboardMarkup(menu, resize_keyboard=True)
 
     def _getMarkdown(self, response):
-        output = (str('```') + "\n" + self._getSymbol(response) + "\n" 
-        + self._getPercentChange1h(response) + "\n" 
-        + self._getPercentChange24h(response) + "\n" 
-        + self._getPercentChange7d(response) + "\n" 
-        + self._getPriceLow(response) + "\n"
-        + self._getPriceHigh(response) + "\n"
-        + self._getVolume(response) + "\n"
-        + self._getMarketCap(response) + "\n"
-        + str('```'))
+        output = ""
+        try:
+            output = (str('```')) + "\n" + self._getSymbol(response) + "\n" \
+            + self._getPercentChange1h(response) + "\n" \
+            + self._getPercentChange24h(response) + "\n" \
+            + self._getPercentChange7d(response) + "\n" \
+            + self._getPriceLow(response) + "\n" \
+            + self._getPriceHigh(response) + "\n" \
+            + self._getVolume(response) + "\n" \
+            + self._getMarketCap(response) + "\n" \
+
+            if 'allTimeHigh' in response:
+                output += self._getAllTimeHigh(response) + "\n"
+    
+            output +=  (str('```'))
+        except Exception as err:
+            print(err)
         return output.replace(".", "\\.").replace("-", "\\-").replace("|", "\\|")
 
     def _getSymbol(self, response):
@@ -114,6 +126,9 @@ class Cryptoprice(PluginImpl):
 
     def _getMarketCap(self, response):
         return self._formatRow("Cap:", response['marketCap'])
+    
+    def _getAllTimeHigh(self, response):
+        return self._formatRow("ATH:", response['allTimeHigh'])
 
     def _formatRow(self, input1, input2):
         return "{0:<10} {1:<10}".format(input1, input2) 

@@ -1,0 +1,1619 @@
+{
+  "defaultKeyStatistics": {
+    "annualHoldingsTurnover": {},
+    "enterpriseToRevenue": {
+      "raw": 25.709,
+      "fmt": "25.71"
+    },
+    "beta3Year": {},
+    "profitMargins": {
+      "raw": -0.00984,
+      "fmt": "-0.98%"
+    },
+    "enterpriseToEbitda": {
+      "raw": 1208.085,
+      "fmt": "1,208.08"
+    },
+    "52WeekChange": {
+      "raw": 2.9844422,
+      "fmt": "298.44%"
+    },
+    "morningStarRiskRating": {},
+    "forwardEps": {
+      "raw": 0.56,
+      "fmt": "0.56"
+    },
+    "revenueQuarterlyGrowth": {},
+    "sharesOutstanding": {
+      "raw": 110645000,
+      "fmt": "110.64M",
+      "longFmt": "110,645,000"
+    },
+    "fundInceptionDate": {},
+    "annualReportExpenseRatio": {},
+    "totalAssets": {},
+    "bookValue": {
+      "raw": 10.375,
+      "fmt": "10.38"
+    },
+    "sharesShort": {
+      "raw": 2684415,
+      "fmt": "2.68M",
+      "longFmt": "2,684,415"
+    },
+    "sharesPercentSharesOut": {
+      "raw": 0.0209,
+      "fmt": "2.09%"
+    },
+    "fundFamily": null,
+    "lastFiscalYearEnd": {
+      "raw": 1609372800,
+      "fmt": "2020-12-31"
+    },
+    "heldPercentInstitutions": {
+      "raw": 0.73954004,
+      "fmt": "73.95%"
+    },
+    "netIncomeToCommon": {
+      "raw": -17507000,
+      "fmt": "-17.51M",
+      "longFmt": "-17,507,000"
+    },
+    "trailingEps": {
+      "raw": -0.141,
+      "fmt": "-0.14"
+    },
+    "lastDividendValue": {},
+    "SandP52WeekChange": {
+      "raw": 0.4136821,
+      "fmt": "41.37%"
+    },
+    "priceToBook": {
+      "raw": 34.365303,
+      "fmt": "34.37"
+    },
+    "heldPercentInsiders": {
+      "raw": 0.00234,
+      "fmt": "0.23%"
+    },
+    "nextFiscalYearEnd": {
+      "raw": 1672444800,
+      "fmt": "2022-12-31"
+    },
+    "yield": {},
+    "mostRecentQuarter": {
+      "raw": 1609372800,
+      "fmt": "2020-12-31"
+    },
+    "shortRatio": {
+      "raw": 0.62,
+      "fmt": "0.62"
+    },
+    "sharesShortPreviousMonthDate": {
+      "raw": 1611878400,
+      "fmt": "2021-01-29"
+    },
+    "floatShares": {
+      "raw": 110794749,
+      "fmt": "110.79M",
+      "longFmt": "110,794,749"
+    },
+    "beta": {
+      "raw": 1.894052,
+      "fmt": "1.89"
+    },
+    "enterpriseValue": {
+      "raw": 45719957504,
+      "fmt": "45.72B",
+      "longFmt": "45,719,957,504"
+    },
+    "priceHint": {
+      "raw": 2,
+      "fmt": "2",
+      "longFmt": "2"
+    },
+    "threeYearAverageReturn": {},
+    "lastSplitDate": {},
+    "lastSplitFactor": null,
+    "legalType": null,
+    "lastDividendDate": {},
+    "morningStarOverallRating": {},
+    "earningsQuarterlyGrowth": {},
+    "priceToSalesTrailing12Months": {},
+    "dateShortInterest": {
+      "raw": 1614297600,
+      "fmt": "2021-02-26"
+    },
+    "pegRatio": {
+      "raw": 66.6,
+      "fmt": "66.60"
+    },
+    "ytdReturn": {},
+    "forwardPE": {
+      "raw": 636.6786,
+      "fmt": "636.68"
+    },
+    "maxAge": 1,
+    "lastCapGain": {},
+    "shortPercentOfFloat": {
+      "raw": 0.0242,
+      "fmt": "2.42%"
+    },
+    "sharesShortPriorMonth": {
+      "raw": 2963814,
+      "fmt": "2.96M",
+      "longFmt": "2,963,814"
+    },
+    "impliedSharesOutstanding": {
+      "raw": 128004000,
+      "fmt": "128M",
+      "longFmt": "128,004,000"
+    },
+    "category": null,
+    "fiveYearAverageReturn": {}
+  },
+  "details": {},
+  "summaryProfile": {
+    "zip": "95510",
+    "sector": "Communication Services",
+    "fullTimeEmployees": 1925,
+    "longBusinessSummary": "Roku, Inc., together with its subsidiaries, operates a TV streaming platform. The company operates in two segments, Platform and Player. The company operates in two segment, Platform and Player. Its platform allows users to discover and access various movies and TV episodes, as well as live sports, music, news, and others. As of December 31, 2020, the company had 51.2 million active accounts. It also provides digital and video advertising, content distribution, subscription, and billing services, as well as other commerce transactions, brand sponsorship and promotions, and audience development campaigns; and manufactures, sells, and licenses smart TVs under the Roku TV name. In addition, the company offers streaming players, and audio products and accessories under the Roku brand name; and sells branded channel buttons on remote controls. It provides its products and services through retailers and distributors, as well as directly to customers through its website in the United States, Canada, the United Kingdom, France, the Republic of Ireland, Mexico, Brazil, and other Latin American countries. Roku, Inc. was founded in 2002 and is headquartered in San Jose, California.",
+    "city": "San Jose",
+    "phone": "408-556-9040",
+    "state": "CA",
+    "country": "United States",
+    "companyOfficers": [],
+    "website": "http://www.roku.com",
+    "maxAge": 86400,
+    "address1": "1155 Coleman Avenue",
+    "industry": "Entertainment"
+  },
+  "recommendationTrend": {
+    "trend": [
+      {
+        "period": "0m",
+        "strongBuy": 1,
+        "buy": 1,
+        "hold": 3,
+        "sell": 0,
+        "strongSell": 1
+      },
+      {
+        "period": "-1m",
+        "strongBuy": 5,
+        "buy": 11,
+        "hold": 9,
+        "sell": 1,
+        "strongSell": 0
+      },
+      {
+        "period": "-2m",
+        "strongBuy": 5,
+        "buy": 11,
+        "hold": 9,
+        "sell": 1,
+        "strongSell": 0
+      },
+      {
+        "period": "-3m",
+        "strongBuy": 1,
+        "buy": 1,
+        "hold": 3,
+        "sell": 0,
+        "strongSell": 1
+      }
+    ],
+    "maxAge": 86400
+  },
+  "financialsTemplate": {
+    "code": "N",
+    "maxAge": 1
+  },
+  "earnings": {
+    "maxAge": 86400,
+    "earningsChart": {
+      "quarterly": [
+        {
+          "date": "1Q2020",
+          "actual": {
+            "raw": -0.45,
+            "fmt": "-0.45"
+          },
+          "estimate": {
+            "raw": -0.45,
+            "fmt": "-0.45"
+          }
+        },
+        {
+          "date": "2Q2020",
+          "actual": {
+            "raw": -0.35,
+            "fmt": "-0.35"
+          },
+          "estimate": {
+            "raw": -0.5,
+            "fmt": "-0.50"
+          }
+        },
+        {
+          "date": "3Q2020",
+          "actual": {
+            "raw": 0.09,
+            "fmt": "0.09"
+          },
+          "estimate": {
+            "raw": -0.4,
+            "fmt": "-0.40"
+          }
+        },
+        {
+          "date": "4Q2020",
+          "actual": {
+            "raw": 0.49,
+            "fmt": "0.49"
+          },
+          "estimate": {
+            "raw": -0.05,
+            "fmt": "-0.05"
+          }
+        }
+      ],
+      "currentQuarterEstimate": {
+        "raw": -0.13,
+        "fmt": "-0.13"
+      },
+      "currentQuarterEstimateDate": "1Q",
+      "currentQuarterEstimateYear": 2021,
+      "earningsDate": [
+        {
+          "raw": 1620172800,
+          "fmt": "2021-05-05"
+        },
+        {
+          "raw": 1620604800,
+          "fmt": "2021-05-10"
+        }
+      ]
+    },
+    "financialsChart": {
+      "yearly": [
+        {
+          "date": 2017,
+          "revenue": {
+            "raw": 512763000,
+            "fmt": "512.76M",
+            "longFmt": "512,763,000"
+          },
+          "earnings": {
+            "raw": -63509000,
+            "fmt": "-63.51M",
+            "longFmt": "-63,509,000"
+          }
+        },
+        {
+          "date": 2018,
+          "revenue": {
+            "raw": 742506000,
+            "fmt": "742.51M",
+            "longFmt": "742,506,000"
+          },
+          "earnings": {
+            "raw": -8857000,
+            "fmt": "-8.86M",
+            "longFmt": "-8,857,000"
+          }
+        },
+        {
+          "date": 2019,
+          "revenue": {
+            "raw": 1128921000,
+            "fmt": "1.13B",
+            "longFmt": "1,128,921,000"
+          },
+          "earnings": {
+            "raw": -59937000,
+            "fmt": "-59.94M",
+            "longFmt": "-59,937,000"
+          }
+        },
+        {
+          "date": 2020,
+          "revenue": {
+            "raw": 1778388000,
+            "fmt": "1.78B",
+            "longFmt": "1,778,388,000"
+          },
+          "earnings": {
+            "raw": -17507000,
+            "fmt": "-17.51M",
+            "longFmt": "-17,507,000"
+          }
+        }
+      ],
+      "quarterly": [
+        {
+          "date": "1Q2020",
+          "revenue": {
+            "raw": 320766000,
+            "fmt": "320.77M",
+            "longFmt": "320,766,000"
+          },
+          "earnings": {
+            "raw": -54612000,
+            "fmt": "-54.61M",
+            "longFmt": "-54,612,000"
+          }
+        },
+        {
+          "date": "2Q2020",
+          "revenue": {
+            "raw": 356073000,
+            "fmt": "356.07M",
+            "longFmt": "356,073,000"
+          },
+          "earnings": {
+            "raw": -43148000,
+            "fmt": "-43.15M",
+            "longFmt": "-43,148,000"
+          }
+        },
+        {
+          "date": "3Q2020",
+          "revenue": {
+            "raw": 451663000,
+            "fmt": "451.66M",
+            "longFmt": "451,663,000"
+          },
+          "earnings": {
+            "raw": 12947000,
+            "fmt": "12.95M",
+            "longFmt": "12,947,000"
+          }
+        },
+        {
+          "date": "4Q2020",
+          "revenue": {
+            "raw": 649886000,
+            "fmt": "649.89M",
+            "longFmt": "649,886,000"
+          },
+          "earnings": {
+            "raw": 67306000,
+            "fmt": "67.31M",
+            "longFmt": "67,306,000"
+          }
+        }
+      ]
+    },
+    "financialCurrency": "USD"
+  },
+  "price": {
+    "quoteSourceName": "Nasdaq Real Time Price",
+    "regularMarketOpen": {
+      "raw": 369.08,
+      "fmt": "369.08"
+    },
+    "averageDailyVolume3Month": {
+      "raw": 4863743,
+      "fmt": "4.86M",
+      "longFmt": "4,863,743"
+    },
+    "exchange": "NMS",
+    "regularMarketTime": 1615410002,
+    "volume24Hr": {},
+    "regularMarketDayHigh": {
+      "raw": 376.28,
+      "fmt": "376.28"
+    },
+    "shortName": "Roku, Inc.",
+    "averageDailyVolume10Day": {
+      "raw": 6156757,
+      "fmt": "6.16M",
+      "longFmt": "6,156,757"
+    },
+    "longName": "Roku, Inc.",
+    "regularMarketChange": {
+      "raw": -4.569977,
+      "fmt": "-4.57"
+    },
+    "currencySymbol": "$",
+    "regularMarketPreviousClose": {
+      "raw": 361.11,
+      "fmt": "361.11"
+    },
+    "postMarketTime": 1615419900,
+    "preMarketPrice": {
+      "raw": 368.705,
+      "fmt": "368.70"
+    },
+    "preMarketTime": 1615386599,
+    "exchangeDataDelayedBy": 0,
+    "toCurrency": null,
+    "postMarketChange": {
+      "raw": 0.98999023,
+      "fmt": "0.99"
+    },
+    "postMarketPrice": {
+      "raw": 357.53,
+      "fmt": "357.53"
+    },
+    "exchangeName": "NasdaqGS",
+    "preMarketChange": {
+      "raw": 7.595,
+      "fmt": "7.59"
+    },
+    "circulatingSupply": {},
+    "regularMarketDayLow": {
+      "raw": 352.96,
+      "fmt": "352.96"
+    },
+    "priceHint": {
+      "raw": 2,
+      "fmt": "2",
+      "longFmt": "2"
+    },
+    "currency": "USD",
+    "regularMarketPrice": {
+      "raw": 356.54,
+      "fmt": "356.54"
+    },
+    "regularMarketVolume": {
+      "raw": 3895886,
+      "fmt": "3.90M",
+      "longFmt": "3,895,886.00"
+    },
+    "lastMarket": null,
+    "regularMarketSource": "FREE_REALTIME",
+    "openInterest": {},
+    "marketState": "POST",
+    "underlyingSymbol": null,
+    "marketCap": {
+      "raw": 45787582464,
+      "fmt": "45.79B",
+      "longFmt": "45,787,582,464.00"
+    },
+    "quoteType": "EQUITY",
+    "preMarketChangePercent": {
+      "raw": 0.0210324,
+      "fmt": "2.10%"
+    },
+    "volumeAllCurrencies": {},
+    "postMarketSource": "FREE_REALTIME",
+    "strikePrice": {},
+    "symbol": "ROKU",
+    "postMarketChangePercent": {
+      "raw": 0.0027766598,
+      "fmt": "0.28%"
+    },
+    "preMarketSource": "FREE_REALTIME",
+    "maxAge": 1,
+    "fromCurrency": null,
+    "regularMarketChangePercent": {
+      "raw": -0.01265536,
+      "fmt": "-1.27%"
+    }
+  },
+  "financialData": {
+    "ebitdaMargins": {
+      "raw": 0.02128,
+      "fmt": "2.13%"
+    },
+    "profitMargins": {
+      "raw": -0.00984,
+      "fmt": "-0.98%"
+    },
+    "grossMargins": {
+      "raw": 0.45446998,
+      "fmt": "45.45%"
+    },
+    "operatingCashflow": {
+      "raw": 148192000,
+      "fmt": "148.19M",
+      "longFmt": "148,192,000"
+    },
+    "revenueGrowth": {
+      "raw": 0.58,
+      "fmt": "58.00%"
+    },
+    "operatingMargins": {
+      "raw": -0.011390001,
+      "fmt": "-1.14%"
+    },
+    "ebitda": {
+      "raw": 37845000,
+      "fmt": "37.84M",
+      "longFmt": "37,845,000"
+    },
+    "targetLowPrice": {
+      "raw": 225,
+      "fmt": "225.00"
+    },
+    "recommendationKey": "buy",
+    "grossProfits": {
+      "raw": 808219000,
+      "fmt": "808.22M",
+      "longFmt": "808,219,000"
+    },
+    "freeCashflow": {
+      "raw": 73851872,
+      "fmt": "73.85M",
+      "longFmt": "73,851,872"
+    },
+    "targetMedianPrice": {
+      "raw": 500,
+      "fmt": "500.00"
+    },
+    "currentPrice": {
+      "raw": 356.54,
+      "fmt": "356.54"
+    },
+    "earningsGrowth": {},
+    "currentRatio": {
+      "raw": 3.263,
+      "fmt": "3.26"
+    },
+    "returnOnAssets": {
+      "raw": -0.00677,
+      "fmt": "-0.68%"
+    },
+    "numberOfAnalystOpinions": {
+      "raw": 23,
+      "fmt": "23",
+      "longFmt": "23"
+    },
+    "targetMeanPrice": {
+      "raw": 477.28,
+      "fmt": "477.28"
+    },
+    "debtToEquity": {
+      "raw": 33.006,
+      "fmt": "33.01"
+    },
+    "returnOnEquity": {
+      "raw": -0.017280001,
+      "fmt": "-1.73%"
+    },
+    "targetHighPrice": {
+      "raw": 650,
+      "fmt": "650.00"
+    },
+    "totalCash": {
+      "raw": 1092814976,
+      "fmt": "1.09B",
+      "longFmt": "1,092,814,976"
+    },
+    "totalDebt": {
+      "raw": 438324992,
+      "fmt": "438.32M",
+      "longFmt": "438,324,992"
+    },
+    "totalRevenue": {
+      "raw": 1778387968,
+      "fmt": "1.78B",
+      "longFmt": "1,778,387,968"
+    },
+    "totalCashPerShare": {
+      "raw": 8.51,
+      "fmt": "8.51"
+    },
+    "financialCurrency": "USD",
+    "maxAge": 86400,
+    "revenuePerShare": {
+      "raw": 14.344,
+      "fmt": "14.34"
+    },
+    "quickRatio": {
+      "raw": 3.121,
+      "fmt": "3.12"
+    },
+    "recommendationMean": {
+      "raw": 2.2,
+      "fmt": "2.20"
+    }
+  },
+  "quoteType": {
+    "exchange": "NMS",
+    "shortName": "Roku, Inc.",
+    "longName": "Roku, Inc.",
+    "exchangeTimezoneName": "America/New_York",
+    "exchangeTimezoneShortName": "EST",
+    "isEsgPopulated": false,
+    "gmtOffSetMilliseconds": "-18000000",
+    "quoteType": "EQUITY",
+    "symbol": "ROKU",
+    "messageBoardId": "finmb_8690249",
+    "market": "us_market"
+  },
+  "calendarEvents": {
+    "maxAge": 1,
+    "earnings": {
+      "earningsDate": [
+        {
+          "raw": 1620172800,
+          "fmt": "2021-05-05"
+        },
+        {
+          "raw": 1620604800,
+          "fmt": "2021-05-10"
+        }
+      ],
+      "earningsAverage": {
+        "raw": -0.13,
+        "fmt": "-0.13"
+      },
+      "earningsLow": {
+        "raw": -0.19,
+        "fmt": "-0.19"
+      },
+      "earningsHigh": {
+        "raw": 0,
+        "fmt": "0.00"
+      },
+      "revenueAverage": {
+        "raw": 489790000,
+        "fmt": "489.79M",
+        "longFmt": "489,790,000"
+      },
+      "revenueLow": {
+        "raw": 457260000,
+        "fmt": "457.26M",
+        "longFmt": "457,260,000"
+      },
+      "revenueHigh": {
+        "raw": 516800000,
+        "fmt": "516.8M",
+        "longFmt": "516,800,000"
+      }
+    },
+    "exDividendDate": {},
+    "dividendDate": {}
+  },
+  "summaryDetail": {
+    "previousClose": {
+      "raw": 361.11,
+      "fmt": "361.11"
+    },
+    "regularMarketOpen": {
+      "raw": 369.08,
+      "fmt": "369.08"
+    },
+    "twoHundredDayAverage": {
+      "raw": 293.15445,
+      "fmt": "293.15"
+    },
+    "trailingAnnualDividendYield": {},
+    "payoutRatio": {
+      "raw": 0,
+      "fmt": "0.00%"
+    },
+    "volume24Hr": {},
+    "regularMarketDayHigh": {
+      "raw": 376.28,
+      "fmt": "376.28"
+    },
+    "navPrice": {},
+    "averageDailyVolume10Day": {
+      "raw": 6156757,
+      "fmt": "6.16M",
+      "longFmt": "6,156,757"
+    },
+    "totalAssets": {},
+    "regularMarketPreviousClose": {
+      "raw": 361.11,
+      "fmt": "361.11"
+    },
+    "fiftyDayAverage": {
+      "raw": 418.45828,
+      "fmt": "418.46"
+    },
+    "trailingAnnualDividendRate": {},
+    "open": {
+      "raw": 369.08,
+      "fmt": "369.08"
+    },
+    "toCurrency": null,
+    "averageVolume10days": {
+      "raw": 6156757,
+      "fmt": "6.16M",
+      "longFmt": "6,156,757"
+    },
+    "expireDate": {},
+    "yield": {},
+    "algorithm": null,
+    "dividendRate": {},
+    "exDividendDate": {},
+    "beta": {
+      "raw": 1.894052,
+      "fmt": "1.89"
+    },
+    "circulatingSupply": {},
+    "startDate": {},
+    "regularMarketDayLow": {
+      "raw": 352.96,
+      "fmt": "352.96"
+    },
+    "priceHint": {
+      "raw": 2,
+      "fmt": "2",
+      "longFmt": "2"
+    },
+    "currency": "USD",
+    "regularMarketVolume": {
+      "raw": 3895886,
+      "fmt": "3.9M",
+      "longFmt": "3,895,886"
+    },
+    "lastMarket": null,
+    "maxSupply": {},
+    "openInterest": {},
+    "marketCap": {
+      "raw": 45787582464,
+      "fmt": "45.79B",
+      "longFmt": "45,787,582,464"
+    },
+    "volumeAllCurrencies": {},
+    "strikePrice": {},
+    "averageVolume": {
+      "raw": 4863743,
+      "fmt": "4.86M",
+      "longFmt": "4,863,743"
+    },
+    "priceToSalesTrailing12Months": {
+      "raw": 25.746677,
+      "fmt": "25.75"
+    },
+    "dayLow": {
+      "raw": 352.96,
+      "fmt": "352.96"
+    },
+    "ask": {
+      "raw": 357.66,
+      "fmt": "357.66"
+    },
+    "ytdReturn": {},
+    "askSize": {
+      "raw": 800,
+      "fmt": "800",
+      "longFmt": "800"
+    },
+    "volume": {
+      "raw": 3895886,
+      "fmt": "3.9M",
+      "longFmt": "3,895,886"
+    },
+    "fiftyTwoWeekHigh": {
+      "raw": 486.72,
+      "fmt": "486.72"
+    },
+    "forwardPE": {
+      "raw": 636.6786,
+      "fmt": "636.68"
+    },
+    "maxAge": 1,
+    "fromCurrency": null,
+    "fiveYearAvgDividendYield": {},
+    "fiftyTwoWeekLow": {
+      "raw": 58.22,
+      "fmt": "58.22"
+    },
+    "bid": {
+      "raw": 355.04,
+      "fmt": "355.04"
+    },
+    "tradeable": false,
+    "dividendYield": {},
+    "bidSize": {
+      "raw": 1400,
+      "fmt": "1.4k",
+      "longFmt": "1,400"
+    },
+    "dayHigh": {
+      "raw": 376.28,
+      "fmt": "376.28"
+    }
+  },
+  "symbol": "ROKU",
+  "esgScores": {},
+  "upgradeDowngradeHistory": {
+    "history": [
+      {
+        "epochGradeDate": 1614764401,
+        "firm": "KeyBanc",
+        "toGrade": "Overweight",
+        "fromGrade": "Sector Weight",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1613997468,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1613753764,
+        "firm": "Wells Fargo",
+        "toGrade": "Overweight",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1613738096,
+        "firm": "Rosenblatt",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1613729969,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1613658291,
+        "firm": "Truist Securities",
+        "toGrade": "Hold",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1613566762,
+        "firm": "Morgan Stanley",
+        "toGrade": "Underweight",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1611587070,
+        "firm": "B of A Securities",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1611059295,
+        "firm": "JP Morgan",
+        "toGrade": "Overweight",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1610107816,
+        "firm": "Rosenblatt",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1610016679,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1608219846,
+        "firm": "Benchmark",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1607527412,
+        "firm": "Citigroup",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1606227386,
+        "firm": "B of A Securities",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "reit"
+      },
+      {
+        "epochGradeDate": 1606129923,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1604669140,
+        "firm": "Rosenblatt",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1604497087,
+        "firm": "Morgan Stanley",
+        "toGrade": "Underweight",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1604327085,
+        "firm": "Wedbush",
+        "toGrade": "Neutral",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1602755551,
+        "firm": "KeyBanc",
+        "toGrade": "Sector Weight",
+        "fromGrade": "Overweight",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1602174343,
+        "firm": "Deutsche Bank",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1602154494,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1601557495,
+        "firm": "Citigroup",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1600160209,
+        "firm": "KeyBanc",
+        "toGrade": "Overweight",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1599558321,
+        "firm": "Wells Fargo",
+        "toGrade": "Overweight",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1598438623,
+        "firm": "Citigroup",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1597228626,
+        "firm": "Deutsche Bank",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1596716495,
+        "firm": "Wedbush",
+        "toGrade": "Neutral",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1596713129,
+        "firm": "Benchmark",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1596712588,
+        "firm": "Rosenblatt",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1596710449,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1596539523,
+        "firm": "Rosenblatt",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1595251222,
+        "firm": "Moffett Nathanson",
+        "toGrade": "Neutral",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1590145712,
+        "firm": "Stephens & Co.",
+        "toGrade": "Equal-Weight",
+        "fromGrade": "Overweight",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1588158742,
+        "firm": "Benchmark",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1588073815,
+        "firm": "Guggenheim",
+        "toGrade": "Neutral",
+        "fromGrade": "Buy",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1586869083,
+        "firm": "RBC Capital",
+        "toGrade": "Outperform",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1586859806,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1586859306,
+        "firm": "Oppenheimer",
+        "toGrade": "Outperform",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1584616228,
+        "firm": "Loop Capital",
+        "toGrade": "Hold",
+        "fromGrade": "Sell",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1581684848,
+        "firm": "Wedbush",
+        "toGrade": "Neutral",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1581683503,
+        "firm": "Rosenblatt",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "reit"
+      },
+      {
+        "epochGradeDate": 1575373984,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1575284993,
+        "firm": "Morgan Stanley",
+        "toGrade": "Underweight",
+        "fromGrade": "Equal-Weight",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1574435469,
+        "firm": "Macquarie",
+        "toGrade": "Outperform",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1573822456,
+        "firm": "Bank of America",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "reit"
+      },
+      {
+        "epochGradeDate": 1573136696,
+        "firm": "Guggenheim",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1573135669,
+        "firm": "RBC Capital",
+        "toGrade": "Outperform",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1572962884,
+        "firm": "Rosenblatt",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "reit"
+      },
+      {
+        "epochGradeDate": 1572263196,
+        "firm": "Bank of America",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1570790002,
+        "firm": "RBC Capital",
+        "toGrade": "Outperform",
+        "fromGrade": "Sector Perform",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1570617001,
+        "firm": "Macquarie",
+        "toGrade": "Outperform",
+        "fromGrade": "Neutral",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1568985311,
+        "firm": "Oppenheimer",
+        "toGrade": "Outperform",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1568975565,
+        "firm": "Pivotal Research",
+        "toGrade": "Sell",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1568809417,
+        "firm": "Guggenheim",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1568028962,
+        "firm": "SunTrust Robinson Humphrey",
+        "toGrade": "Hold",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1567598197,
+        "firm": "DA Davidson",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1565264017,
+        "firm": "Rosenblatt",
+        "toGrade": "Buy",
+        "fromGrade": "Neutral",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1565260560,
+        "firm": "Stephens & Co.",
+        "toGrade": "Overweight",
+        "fromGrade": "Equal-Weight",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1565181863,
+        "firm": "Vertical Group",
+        "toGrade": "Positive",
+        "fromGrade": "Mixed",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1562063827,
+        "firm": "RBC Capital",
+        "toGrade": "Sector Perform",
+        "fromGrade": "Outperform",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1559734555,
+        "firm": "Guggenheim",
+        "toGrade": "Buy",
+        "fromGrade": "Neutral",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1559044567,
+        "firm": "Stephens & Co.",
+        "toGrade": "Equal-Weight",
+        "fromGrade": "Overweight",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1558622911,
+        "firm": "DA Davidson",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1557489978,
+        "firm": "Morgan Stanley",
+        "toGrade": "Equal-Weight",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1557406347,
+        "firm": "RBC Capital",
+        "toGrade": "Outperform",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1557396682,
+        "firm": "KeyBanc",
+        "toGrade": "Overweight",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1557227778,
+        "firm": "Stephens & Co.",
+        "toGrade": "Overweight",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1556714735,
+        "firm": "Vertical Group",
+        "toGrade": "Mixed",
+        "fromGrade": "Negative",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1556023756,
+        "firm": "Susquehanna",
+        "toGrade": "Positive",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1554808525,
+        "firm": "Citigroup",
+        "toGrade": "Sell",
+        "fromGrade": "Neutral",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1554724561,
+        "firm": "Citigroup",
+        "toGrade": "Sell",
+        "fromGrade": "Neutral",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1554374587,
+        "firm": "Guggenheim",
+        "toGrade": "Neutral",
+        "fromGrade": "Buy",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1554205574,
+        "firm": "Rosenblatt",
+        "toGrade": "Neutral",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1554113753,
+        "firm": "KeyBanc",
+        "toGrade": "Overweight",
+        "fromGrade": "Overweight",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1552481065,
+        "firm": "Loop Capital",
+        "toGrade": "Sell",
+        "fromGrade": "Hold",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1551108946,
+        "firm": "Citigroup",
+        "toGrade": "Neutral",
+        "fromGrade": "Neutral",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1550838742,
+        "firm": "Wedbush",
+        "toGrade": "Neutral",
+        "fromGrade": "Outperform",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1547473046,
+        "firm": "Citigroup",
+        "toGrade": "Neutral",
+        "fromGrade": "Neutral",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1545224494,
+        "firm": "KeyBanc",
+        "toGrade": "Overweight",
+        "fromGrade": "Overweight",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1545137391,
+        "firm": "SunTrust Robinson Humphrey",
+        "toGrade": "Hold",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1543841771,
+        "firm": "DA Davidson",
+        "toGrade": "Buy",
+        "fromGrade": "Neutral",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1541440358,
+        "firm": "Morgan Stanley",
+        "toGrade": "Equal-Weight",
+        "fromGrade": "Equal-Weight",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1541070433,
+        "firm": "Wedbush",
+        "toGrade": "Outperform",
+        "fromGrade": "Neutral",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1539943797,
+        "firm": "RBC Capital",
+        "toGrade": "Outperform",
+        "fromGrade": "Sector Perform",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1538735793,
+        "firm": "Wedbush",
+        "toGrade": "Neutral",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1538398365,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "Buy",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1536662044,
+        "firm": "KeyBanc",
+        "toGrade": "Overweight",
+        "fromGrade": "Overweight",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1536062224,
+        "firm": "Guggenheim",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1533823231,
+        "firm": "Oppenheimer",
+        "toGrade": "Outperform",
+        "fromGrade": "Outperform",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1533819159,
+        "firm": "Citigroup",
+        "toGrade": "Neutral",
+        "fromGrade": "Neutral",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1533812524,
+        "firm": "KeyBanc",
+        "toGrade": "Overweight",
+        "fromGrade": "Overweight",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1531822935,
+        "firm": "KeyBanc",
+        "toGrade": "Overweight",
+        "fromGrade": "Overweight",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1530614900,
+        "firm": "Oppenheimer",
+        "toGrade": "Outperform",
+        "fromGrade": "Perform",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1528982280,
+        "firm": "Macquarie",
+        "toGrade": "Outperform",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1527592578,
+        "firm": "Morgan Stanley",
+        "toGrade": "Equal-Weight",
+        "fromGrade": "Underweight",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1525169457,
+        "firm": "KeyBanc",
+        "toGrade": "Overweight",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1525121562,
+        "firm": "DA Davidson",
+        "toGrade": "Neutral",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1524228136,
+        "firm": "Loop Capital",
+        "toGrade": "Hold",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1522151745,
+        "firm": "Citigroup",
+        "toGrade": "Neutral",
+        "fromGrade": "Sell",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1521549434,
+        "firm": "Oppenheimer",
+        "toGrade": "Perform",
+        "fromGrade": "Underperform",
+        "action": "up"
+      },
+      {
+        "epochGradeDate": 1519312003,
+        "firm": "Morgan Stanley",
+        "toGrade": "Underweight",
+        "fromGrade": "Underweight",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1519309651,
+        "firm": "Citigroup",
+        "toGrade": "Sell",
+        "fromGrade": "Sell",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1515156713,
+        "firm": "Citigroup",
+        "toGrade": "Sell",
+        "fromGrade": "Neutral",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1515068262,
+        "firm": "Morgan Stanley",
+        "toGrade": "Underweight",
+        "fromGrade": "Equal-Weight",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1511810528,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "Buy",
+        "action": "reit"
+      },
+      {
+        "epochGradeDate": 1510677481,
+        "firm": "Oppenheimer",
+        "toGrade": "Underperform",
+        "fromGrade": "Perform",
+        "action": "down"
+      },
+      {
+        "epochGradeDate": 1510232593,
+        "firm": "Morgan Stanley",
+        "toGrade": "Equal-Weight",
+        "fromGrade": "",
+        "action": "main"
+      },
+      {
+        "epochGradeDate": 1508787545,
+        "firm": "Needham",
+        "toGrade": "Buy",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1508787315,
+        "firm": "William Blair",
+        "toGrade": "Outperform",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1508787268,
+        "firm": "Morgan Stanley",
+        "toGrade": "Equal-Weight",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1508776700,
+        "firm": "Oppenheimer",
+        "toGrade": "Perform",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1508786100,
+        "firm": "Citigroup",
+        "toGrade": "Neutral",
+        "fromGrade": "",
+        "action": "init"
+      },
+      {
+        "epochGradeDate": 1508760849,
+        "firm": "RBC Capital",
+        "toGrade": "Sector Perform",
+        "fromGrade": "",
+        "action": "init"
+      }
+    ],
+    "maxAge": 86400
+  },
+  "pageViews": {
+    "shortTermTrend": "UP",
+    "midTermTrend": "UP",
+    "longTermTrend": "UP",
+    "maxAge": 1
+  }
+}

@@ -26,4 +26,7 @@ p - get price for a crypto coin
 sp - get price for a stock
 upcoming - get news related to a specific coin
 meme - send a dank meme
+dumb - mock someone for saying something stupid
+index - top coin summary
+donate - we're poor plz donate
 ```
