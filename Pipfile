@@ -13,6 +13,7 @@ robin-stocks = "*"
 plexapi = "*"
 yfinance = "*"
 pycoingecko = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

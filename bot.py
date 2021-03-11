@@ -6,6 +6,9 @@ import importlib
 import re
 from telegram.ext import Updater, InlineQueryHandler, MessageHandler, Filters
 
+import os
+import psycopg2
+
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -27,6 +30,9 @@ class Bot():
 
         self.job_queue = self.updater.job_queue
         self.dispatcher = self.updater.dispatcher
+
+        # connect DB
+        self.connectDB()
 
         # Load classes in folder 'plugins'
         self._load_plugins()
@@ -60,6 +66,34 @@ class Bot():
         except Exception as ex:
             msg = f"File '{file}' can't be loaded as a plugin: {ex}"
             logging.warning(msg)
+
+    def connectDB(self):
+        try:
+            connection = psycopg2.connect(
+            "postgres://whkrhdwpenhhym:598bb25bd018891284d02f939948b0b25a06df4508c251143f98fe1671a12f43@ec2-54-164-22-242.compute-1.amazonaws.com:5432/d5i6go6su3sf1h",
+            sslmode='require')
+            cursor = connection.cursor()
+            # Print PostgreSQL details
+            print("PostgreSQL server information")
+            print(connection.get_dsn_parameters(), "\n")
+            # Executing a SQL query
+            cursor.execute("SELECT version();")
+            # Fetch result
+            record = cursor.fetchone()
+            print("You are connected to - ", record, "\n")
+
+            ###########TESTING QUERY###############
+            # print test table
+            cursor.execute("SELECT * FROM ACCOUNT;")
+            record = cursor.fetchone()
+            print(record)
+
+        except Exception as e:
+            print(e)
+
+
+
+
 
 
 if __name__ == '__main__':
