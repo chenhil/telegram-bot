@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 class Coinstats():
     def __init__(self):
-        print("fuck thuan")
+        pass
 
     def getAsset(self, user, clean):
         url = self.findUserData(user)
