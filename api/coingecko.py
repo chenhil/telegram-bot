@@ -24,6 +24,7 @@ class CoinGecko():
         responseJson['percentChange7d'] = str(round(response["market_data"]["price_change_percentage_7d"], 2))+ "%"
         responseJson["priceLow"] = "$" + prettify(str(response["market_data"]['low_24h']['usd']))
         responseJson["priceHigh"] = "$" + prettify(str(response["market_data"]['high_24h']['usd']))
+        responseJson["allTimeHigh"] = "$" + prettify(str(response["market_data"]['ath']['usd']))
     
         return responseJson
         
