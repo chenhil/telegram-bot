@@ -2,6 +2,7 @@ import requests
 import re
 import sys
 import json
+from api.stocksg_config.stocksg_configurator import StocksConfigurator
 
 _yahoo_hostname = "https://finance.yahoo.com"
 _default_headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
@@ -12,10 +13,15 @@ class StocksG(object):
         self._hostname = ""
         self._request_url = ""
         self.stock_symbol = ""
-        self.stock_data = {}
+        self.stock_data = dict()
+        self.config_id = {}
+        self.configurator = {}
 
     def get_data(self, stock_symbol):
         pass
+
+    def _load_stocks_config(self):
+        self.configurator = StocksConfigurator(self.config_id)
 
     def _request_stock_data(self, headers):
         try:
@@ -23,24 +29,24 @@ class StocksG(object):
             if response.status_code == 200:
                 return response.text
         except requests.exceptions.Timeout as err:
-            print(err)
+            logging.error(err)
         except requests.exceptions.HTTPError as err:
-            print(err)
+            logging.error(err)
 
         return {}
 
 class YahooStocksG(StocksG):
-
     def __init__(self):
         super(YahooStocksG, self).__init__()
+        self.config_id = "yahoo"
+        self._load_stocks_config()
         self._hostname = _yahoo_hostname
-        self._all_data = {}
 
     def get_data(self, stock_symbol):
         self.stock_symbol = stock_symbol
         self._request_url = self._make_url()
-        self._raw_data = self._request_stock_data(_default_headers)
-        self._parse_stock_data(self._raw_data)
+        response = self._request_stock_data(_default_headers)
+        self._parse_stock_data(response)
         return self.stock_data
 
     def _make_url(self):
@@ -48,60 +54,44 @@ class YahooStocksG(StocksG):
 
     def _parse_stock_data(self, raw_data):
         try:
-            filtered_data = re.search(r'QuoteSummaryStore.*?:(.*?),"FinanceConfigStore"', raw_data).group(1)
-            self.all_data = json.loads(filtered_data)
-            self.__write_to_log(self.all_data)
+            json_data = re.search(r'QuoteSummaryStore.*?:(.*?),"FinanceConfigStore"', raw_data).group(1)
+            external_data = json.loads(json_data)
 
-            parsed_data = dict()
-            price = self._get_if_exist(self.all_data, ['price'])
-            company_summary = self._get_if_exist(self.all_data, ['summaryProfile'])
-            summary_detail = self._get_if_exist(self.all_data, ['summaryDetail'])
-            
-            has_pre_market_data = False
-            has_post_market_data = False
+            self.stock_data['symbol'] = external_data['symbol']
+            self._set_market_hours_available(external_data)
 
-            if 'fmt' in self._get_if_exist(price, ['preMarketPrice']):
-                has_pre_market_data = True
-            if 'fmt' in self._get_if_exist(price, ['postMarketPrice']):
-                has_post_market_data = True
+            # Configurator gives us the internal_name -> external_name mapping
+            attributes_map = self.configurator.name_mapping
+            for attr_type in attributes_map:
+                attr_names = attributes_map[attr_type]
+                external_attributes = self._get_if_exist(external_data, [attr_type])
 
-            parsed_data['has_pre_market_data'] = has_pre_market_data
-            parsed_data['has_post_market_data'] = has_post_market_data
+                for name in attr_names:
+                    ext_name = attr_names[name]['external_name']
+                    ext_value = self._get_if_exist(external_attributes, [ext_name])
+                    
+                    # use the formatted value if we can, otherwise use default.
+                    if 'fmt' in ext_value:
+                        self.stock_data[name] = ext_value['fmt']
+                    else:
+                        self.stock_data[name] = ext_value
 
-
-            parsed_data['symbol']                         = self._get_if_exist(self.all_data, ['symbol'])
-            parsed_data['company_short_name']             = self._get_if_exist(price, ['shortName'])
-            parsed_data['company_long_name']              = self._get_if_exist(price, ['longName'])
-            parsed_data['company_profile'] = {
-                'market_cap': self._get_if_exist(price, ['marketCap', 'fmt']),
-                'sector': self._get_if_exist(company_summary, ['sector']),
-                'full_time_employees': self._get_if_exist(company_summary, ['fullTimeEmployees']),
-                'city': self._get_if_exist(company_summary, ['city']),
-                'state': self._get_if_exist(company_summary, ['state']),
-                'country': self._get_if_exist(company_summary, ['country']),
-                'website': self._get_if_exist(company_summary, ['website']),
-                'summary': self._get_if_exist(company_summary, ['longBusinessSummary']),
-            }
-            parsed_data['currency_symbol']                = self._get_if_exist(price, ['currencySymbol'])
-            parsed_data['regular_market_price']           = self._get_if_exist(price, ['regularMarketPrice', 'fmt'])
-            parsed_data['pre_market_price']               = self._get_if_exist(price, ['preMarketPrice', 'fmt'])
-            parsed_data['post_market_price']              = self._get_if_exist(price, ['postMarketPrice', 'fmt'])
-            parsed_data['market_open_price']              = self._get_if_exist(price, ['regularMarketOpen', 'fmt'])
-            parsed_data['regular_market_low']             = self._get_if_exist(price, ['regularMarketDayLow', 'fmt'])
-            parsed_data['regular_market_high']            = self._get_if_exist(price, ['regularMarketDayHigh', 'fmt'])
-            parsed_data['regular_market_volume']          = self._get_if_exist(price, ['regularMarketVolume', 'fmt'])
-            parsed_data['regular_market_change']          = self._get_if_exist(price, ['regularMarketChange', 'fmt'])
-            parsed_data['regular_market_change_percent']  = self._get_if_exist(price, ['regularMarketChangePercent', 'fmt'])
-            parsed_data['post_market_change']             = self._get_if_exist(price, ['postMarketChange', 'fmt'])
-            parsed_data['post_market_change_percent']     = self._get_if_exist(price, ['postMarketChangePercent', 'fmt'])
-            parsed_data['average_volume']                 = self._get_if_exist(summary_detail, ['averageVolume', 'fmt'])
-            parsed_data['fifty_two_week_low']             = self._get_if_exist(summary_detail, ['fiftyTwoWeekLow', 'fmt'])
-            parsed_data['fifty_two_week_high']            = self._get_if_exist(summary_detail, ['fiftyTwoWeekHigh', 'fmt'])
-
-            self.stock_data = parsed_data
         except ValueError as err:
             print("Decoding JSON has failed:")
             print(err)
+
+    def _set_market_hours_available(self, external_data):
+        price = self._get_if_exist(external_data, ['price'])
+        # Check to see if there is pre/post market hours
+        has_pre_market_data = False
+        has_post_market_data = False
+        if 'fmt' in self._get_if_exist(external_data, ['price', 'preMarketPrice']):
+            has_pre_market_data = True
+        if 'fmt' in self._get_if_exist(external_data, ['price', 'postMarketPrice']):
+            has_post_market_data = True
+
+        self.stock_data['has_pre_market_data'] = has_pre_market_data
+        self.stock_data['has_post_market_data'] = has_post_market_data
 
     def _get_if_exist(self, map, keys):
         obj = map
