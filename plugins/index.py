@@ -65,7 +65,6 @@ class Index(PluginImpl):
         indexValue = context.user_data.get('index', 'Not found')
         pageValue = context.user_data.get('page', 'Not found')
         timeframeValue = context.user_data.get('timeframe', 'Not found')
-        print("Before " + indexValue + " " + str(pageValue) + " " + timeframeValue) 
         if query.data == "index_btc":
             indexValue = 'btc'
             context.user_data['index'] = 'btc'
@@ -90,7 +89,6 @@ class Index(PluginImpl):
         elif query.data == 'index_prev':
             pageValue = pageValue - 1
             context.user_data['page'] = pageValue
-        print("After " + indexValue + " " + str(pageValue) + " " + timeframeValue) 
         data = self._getMarkdown(indexValue, pageValue, timeframeValue)
         try:
             query.edit_message_text(data, parse_mode=ParseMode.MARKDOWN_V2,
@@ -104,13 +102,17 @@ class Index(PluginImpl):
         percentChange = 'price_change_percentage_{}_in_currency'.format(timeframeValue)
         count = (10 * pageValue)
         for item in data:
-            count = count + 1
-            output += self._formatRow(count, item['symbol'], self._float_to_string(item['current_price']), str(round(item[percentChange], 2))+"%" ) + "\n"
+            count = count + 1   
+            if indexValue == 'usd':
+                price_rounded = "$" + self._float_to_string(item['current_price'], 4)
+            else:
+                price_rounded = self._float_to_string(item['current_price'])
+            output += self._formatRow(count, item['symbol'], price_rounded, str(round(item[percentChange], 2))+"%" ) + "\n"
         output += str('```')
         return output
 
     def _formatRow(self, *args):
-        return '{0:<3} {1:<5} {2:>8} {3:>8}'.format(*args)
+        return '{0:<3}{1:<5}{2:>10}{3:>8}'.format(*args)
         
     def _float_to_string(self, number, precision=8):
         return '{0:.{prec}f}'.format(
