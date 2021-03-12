@@ -49,8 +49,8 @@ class Index(PluginImpl):
             header.append(InlineKeyboardButton("Next 10", callback_data="index_next"))
         buttons = [
             InlineKeyboardButton("BTC", callback_data="index_btc"),
-            InlineKeyboardButton("ETH", callback_data="index_eth"),
             InlineKeyboardButton("USD", callback_data="index_usd"),
+            InlineKeyboardButton("ETH", callback_data="index_eth"),
             InlineKeyboardButton("24H", callback_data="index_24h"),
             InlineKeyboardButton("7d", callback_data="index_7d"),
             InlineKeyboardButton("30d", callback_data="index_30d")
@@ -65,7 +65,6 @@ class Index(PluginImpl):
         indexValue = context.user_data.get('index', 'Not found')
         pageValue = context.user_data.get('page', 'Not found')
         timeframeValue = context.user_data.get('timeframe', 'Not found')
-        print("Before " + indexValue + " " + str(pageValue) + " " + timeframeValue) 
         if query.data == "index_btc":
             indexValue = 'btc'
             context.user_data['index'] = 'btc'
@@ -90,7 +89,6 @@ class Index(PluginImpl):
         elif query.data == 'index_prev':
             pageValue = pageValue - 1
             context.user_data['page'] = pageValue
-        print("After " + indexValue + " " + str(pageValue) + " " + timeframeValue) 
         data = self._getMarkdown(indexValue, pageValue, timeframeValue)
         try:
             query.edit_message_text(data, parse_mode=ParseMode.MARKDOWN_V2,
@@ -99,18 +97,22 @@ class Index(PluginImpl):
             logging.error("Unable to update message "  + e)
 
     def _getMarkdown(self, indexValue, pageValue, timeframeValue):
-        output = str('```') + "\n" + "Current Currency: {}".format(indexValue) + "\n" + self._formatRow("#", "Coin", "Price", timeframeValue+"%") + "\n"
+        output = str('```') + "\n" + "Current Currency: {}".format(indexValue.upper()) + "\n" + self._formatRow("#", "Coin", "Price", timeframeValue+"%") + "\n"
         data = CoinGecko().coinMarketData[indexValue][pageValue] 
         percentChange = 'price_change_percentage_{}_in_currency'.format(timeframeValue)
         count = (10 * pageValue)
         for item in data:
-            count = count + 1
-            output += self._formatRow(count, item['symbol'], self._float_to_string(item['current_price']), str(round(item[percentChange], 2))+"%" ) + "\n"
+            count = count + 1   
+            if indexValue == 'usd':
+                price_rounded = "$" + self._float_to_string(item['current_price'], 4)
+            else:
+                price_rounded = self._float_to_string(item['current_price'])
+            output += self._formatRow(count, item['symbol'], price_rounded, str(round(item[percentChange], 2))+"%" ) + "\n"
         output += str('```')
         return output
 
     def _formatRow(self, *args):
-        return '{0:<3} {1:<8} {2:>10} {3:>10}'.format(*args)
+        return '{0:<3}{1:<5}{2:>10}{3:>8}'.format(*args)
         
     def _float_to_string(self, number, precision=8):
         return '{0:.{prec}f}'.format(
