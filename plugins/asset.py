@@ -9,13 +9,18 @@ class Asset(PluginImpl):
     @PluginImpl.send_typing
     def get_action(self, update, context):
         userId = update.message.from_user.id
+        user = update.message.from_user.username
+
+        response = "@{} Profile ".format(user)
 
         if len(context.args) == 0:
-            response = self.getAsset(userId, 1)
+            response = response + "1" + "\n"
+            response = response + self.getAsset(userId, 1)
             update.message.bot.send_message(chat_id = update.effective_chat.id,
                 text=self._getMarkdown(str(response)), parse_mode=ParseMode.MARKDOWN_V2)
         elif len(context.args) == 1:
-            response = self.getAsset(userId, context.args[0])
+            response = response + context.args[0] + "\n"
+            response = response + self.getAsset(userId, context.args[0])
             update.message.bot.send_message(chat_id = update.effective_chat.id,
                 text=self._getMarkdown(str(response)), parse_mode=ParseMode.MARKDOWN_V2)
         elif context.args[0] == 'save':
