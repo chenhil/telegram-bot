@@ -1,31 +1,48 @@
 import requests
 from bs4 import BeautifulSoup
 
+#TODO, need store connection in upper
+import os
+import psycopg2
 
 class Coinstats():
     def __init__(self):
+        url = 'postgres://whkrhdwpenhhym:598bb25bd018891284d02f939948b0b25a06df4508c251143f98fe1671a12f43@ec2-54-164-22-242.compute-1.amazonaws.com:5432/d5i6go6su3sf1h'
+        self.connection = psycopg2.connect(url,sslmode='require')
         pass
 
-    def getAsset(self, user, clean):
-        url = self.findUserData(user)
+    def getAsset(self, user_id, asset_id):
+        cursor = self.connection.cursor()
+
+        query = "SELECT profile_link  FROM Asset  WHERE user_id = '{}' and asset_id = '{}';".format(user_id, asset_id)
+        cursor.execute(query)
+        record = cursor.fetchone()[0]
+        self.connection.close()
+        return self.getAssetLink(record)
+
+    def saveAsset(self, user_id, asset_id, link):
+        try:
+            cursor = self.connection.cursor()
+
+            #delete if exist
+            query = "DELETE FROM ASSET WHERE USER_ID = '{}' AND ASSET_ID = '{}';".format(user_id, asset_id)
+            cursor.execute(query)
+
+            #insert
+            query = "INSERT INTO Asset(user_id, asset_id, profile_link) VALUES ('{}', '{}', '{}')".format(user_id, asset_id, link)
+            cursor.execute(query)
+            self.connection.commit()
+            self.connection.close()
+        except Exception as e:
+            print(e)
+
+
+
+    def getAssetLink(self, url):
         r = requests.get(url)
         bsObj = BeautifulSoup(r.text, 'html.parser')
         totalAsset = bsObj.find('span', {'class': 'main-price'})['title']
-
-        oldAsset = self.findUserAsset(user)
-
-        if oldAsset is not None:
-            currentAsset = totalAsset.replace("$","").replace(",", "")
-            changes = float(currentAsset) - float(oldAsset)
-            changes = changes / (float(currentAsset) + float(oldAsset))
-            changes = round(changes * 100, 2)
-            changes = str(changes) + '%'
-            totalAsset = totalAsset + '  -  ' +  changes
-
-        response = user + '\n' + 'Total: ' + str(totalAsset) + '\n'
-
-        if(clean):
-            self.saveAsset(user, totalAsset)
+        response = 'Total: ' + str(totalAsset) + '\n'
 
         coins = bsObj.find('div', {'class': 'coins-container'}).ul
 
@@ -35,61 +52,4 @@ class Coinstats():
             response = response + currency + ": " +  amount + "\n"
 
         return response
-
-
-    def saveUser(self, user, link):
-        self.removeUserData(user)
-        with open("./config/coinstats.txt", "a") as myfile:
-            myfile.write(user + ' ' + link+'\n')
-
-    def saveAsset(self, user, totalAsset):
-        self.removeUserAsset(user)
-        total = totalAsset.replace("$","").replace(",", "")
-        with open("./config/asset.txt", "a") as myfile:
-            myfile.write(user + ' ' + total+'\n')
-
-    def findUserAsset(self, user):
-        try:
-            with open("./config/asset.txt") as fp:
-                for line in fp:
-                    line = line.strip("\n")
-                    line = line.split()
-                    if line[0] == user:
-                        return line[1]
-        except Exception as e:
-            print(e)
-
-    def removeUserAsset(self, user):
-        a_file = open("./config/asset.txt", "r")
-        lines = a_file.readlines()
-        a_file.close()
-
-        new_file = open("./config/asset.txt", "w")
-        for line in lines:
-            if line.split()[0] != user:
-                new_file.write(line)
-        new_file.close()
-
-    def findUserData(self, user):
-        try:
-            with open("./config/coinstats.txt") as fp:
-                for line in fp:
-                    line = line.strip("\n")
-                    line = line.split()
-                    if line[0] == user:
-                        return line[1]
-        except Exception as e:
-            print(e)
-
-    def removeUserData(self, user):
-        a_file = open("./config/coinstats.txt", "r")
-        lines = a_file.readlines()
-        a_file.close()
-
-        new_file = open("./config/coinstats.txt", "w")
-        for line in lines:
-            if line.split()[0] != user:
-                new_file.write(line)
-        new_file.close()
-
 
