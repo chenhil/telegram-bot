@@ -49,8 +49,8 @@ class Index(PluginImpl):
             header.append(InlineKeyboardButton("Next 10", callback_data="index_next"))
         buttons = [
             InlineKeyboardButton("BTC", callback_data="index_btc"),
-            InlineKeyboardButton("ETH", callback_data="index_eth"),
             InlineKeyboardButton("USD", callback_data="index_usd"),
+            InlineKeyboardButton("ETH", callback_data="index_eth"),
             InlineKeyboardButton("24H", callback_data="index_24h"),
             InlineKeyboardButton("7d", callback_data="index_7d"),
             InlineKeyboardButton("30d", callback_data="index_30d")
@@ -97,7 +97,7 @@ class Index(PluginImpl):
             logging.error("Unable to update message "  + e)
 
     def _getMarkdown(self, indexValue, pageValue, timeframeValue):
-        output = str('```') + "\n" + "Current Currency: {}".format(indexValue) + "\n" + self._formatRow("#", "Coin", "Price", timeframeValue+"%") + "\n"
+        output = str('```') + "\n" + "Current Currency: {}".format(indexValue.upper()) + "\n" + self._formatRow("#", "Coin", "Price", timeframeValue+"%") + "\n"
         data = CoinGecko().coinMarketData[indexValue][pageValue] 
         percentChange = 'price_change_percentage_{}_in_currency'.format(timeframeValue)
         count = (10 * pageValue)
