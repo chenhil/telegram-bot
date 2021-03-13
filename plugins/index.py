@@ -24,9 +24,9 @@ class Index(PluginImpl):
         # Needs to be moved into a cache
         CoinGecko().getMarketData()
 
-        context.user_data['index'] = 'usd'
-        context.user_data['page'] = 0
-        context.user_data['timeframe'] = '24h'
+        context.chat_data['index'] = 'usd'
+        context.chat_data['page'] = 0
+        context.chat_data['timeframe'] = '24h'
 
         data = self._getMarkdown("usd", 0, "24h")
         update.message.bot.send_message(chat_id = update.effective_chat.id, 
@@ -64,33 +64,33 @@ class Index(PluginImpl):
     def _callback(self, update, context):
         query = update.callback_query
         query.answer()
-        indexValue = context.user_data.get('index', 'Not found')
-        pageValue = context.user_data.get('page', 'Not found')
-        timeframeValue = context.user_data.get('timeframe', 'Not found')
+        indexValue = context.chat_data.get('index', 'Not found')
+        pageValue = context.chat_data.get('page', 'Not found')
+        timeframeValue = context.chat_data.get('timeframe', 'Not found')
         if query.data == "index_btc":
             indexValue = 'btc'
-            context.user_data['index'] = 'btc'
+            context.chat_data['index'] = 'btc'
         elif query.data == 'index_eth':
             indexValue = 'eth'
-            context.user_data['index'] = 'eth'
+            context.chat_data['index'] = 'eth'
         elif query.data == 'index_usd':
             indexValue = 'usd'
-            context.user_data['index'] = 'usd'
+            context.chat_data['index'] = 'usd'
         elif query.data == 'index_24h':
             timeframeValue = '24h'
-            context.user_data['timeframe'] = '24h'            
+            context.chat_data['timeframe'] = '24h'            
         elif query.data == 'index_7d':
             timeframeValue = '7d'
-            context.user_data['timeframe'] = '7d'
+            context.chat_data['timeframe'] = '7d'
         elif query.data == 'index_30d':
             timeframeValue = '30d'
-            context.user_data['timeframe'] = '30d'
+            context.chat_data['timeframe'] = '30d'
         elif query.data == 'index_next':
             pageValue = pageValue + 1
-            context.user_data['page'] = pageValue
+            context.chat_data['page'] = pageValue
         elif query.data == 'index_prev':
             pageValue = pageValue - 1
-            context.user_data['page'] = pageValue
+            context.chat_data['page'] = pageValue
         data = self._getMarkdown(indexValue, pageValue, timeframeValue)
         try:
             query.edit_message_text(data, parse_mode=ParseMode.MARKDOWN_V2,
