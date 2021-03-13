@@ -5,6 +5,7 @@ from telegram.ext import CallbackQueryHandler
 from telegram.utils.helpers import escape_markdown
 import logging
 from api.stocksg import YahooStocksG
+from api.count import count
 
 class Stockprice(PluginImpl):
 
@@ -23,6 +24,7 @@ class Stockprice(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
+        count("sp")
         if len(context.args) != 1:
             update.message.reply_text(
                 text=f"Usage:\n{self.get_usage()}",

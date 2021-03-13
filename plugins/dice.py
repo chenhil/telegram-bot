@@ -1,5 +1,6 @@
 from telegram import ParseMode
 from plugin import PluginImpl, Keyword
+from api.count import count
 import util.emoji as emo
 import telegram.dice
 
@@ -9,4 +10,5 @@ class Dice(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
+        count("roll")
         context.bot.send_dice(emoji='🎲', chat_id=update.effective_chat.id)

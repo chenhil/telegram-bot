@@ -1,6 +1,7 @@
 from telegram import ParseMode
 from plugin import PluginImpl, Keyword
 from api.upcoming import Upcoming as News
+from api.count import count
 
 class Upcoming(PluginImpl):
     def get_cmds(self):
@@ -8,6 +9,7 @@ class Upcoming(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
+        count("up")
         if len(context.args) != 1:
             update.message.reply_text(  
                 text=f"Usage:\n{self.get_usage()}",
