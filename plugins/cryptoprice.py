@@ -22,13 +22,9 @@ class Cryptoprice(PluginImpl):
     def get_action(self, update, context):
         count("p")
         if len(context.args) != 1:
-            # update.message.reply_text(
-            #     text=f"Usage:\n{self.get_usage()}",
-            #     parse_mode=ParseMode.MARKDOWN)
-            response = self._getPrice('btc') + "\n\n" + self._getPrice('eth')
-            update.message.bot.send_message(chat_id = update.effective_chat.id, 
-            text=response, parse_mode=ParseMode.MARKDOWN_V2, 
-            reply_markup=self._keyboard_stats())
+            update.message.reply_text(
+                text=f"Usage:\n{self.get_usage()}",
+                parse_mode=ParseMode.MARKDOWN)
             return
         try:
             response = self._getPrice(context.args[0])
@@ -40,7 +36,7 @@ class Cryptoprice(PluginImpl):
             return self.handle_error(f"Error. Invalid symbol {context.args[0].upper()} ", update)
 
     def get_usage(self):
-        return f"`/{self.get_cmds()[0]} <symbol>`\n"
+        return f"`/{self.get_cmds()[0]} <ticker>`\n"
 
     def get_description(self):
         return "Get the current price of a cryto/stock"

@@ -109,7 +109,7 @@ class Index(PluginImpl):
                 price_rounded = "$" + self._float_to_string(item['current_price'], 4)
             else:
                 price_rounded = self._float_to_string(item['current_price'])
-            output += self._formatRow(count, item['symbol'], price_rounded, str(round(item[percentChange], 2))+"%" ) + "\n"
+            output += self._formatRow(count, item['symbol'].upper(), price_rounded, str(round(item[percentChange], 2))+"%" ) + "\n"
         output += str('```')
         return output
 
