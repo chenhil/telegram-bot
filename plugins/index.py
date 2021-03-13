@@ -4,6 +4,7 @@ from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
 from api.coingecko import CoinGecko
 from uuid import uuid4
+from api.count import count
 import logging
 import decimal
 
@@ -19,6 +20,7 @@ class Index(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
+        count("index")
         # Needs to be moved into a cache
         CoinGecko().getMarketData()
 

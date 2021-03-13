@@ -1,13 +1,15 @@
 from telegram import ParseMode
 from plugin import PluginImpl, Keyword
 from api.coinstat import Coinstats
+from api.count import count
 
-class Asset(PluginImpl):
+class Stat(PluginImpl):
     def get_cmds(self):
         return ["a", "asset"]
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
+        count("a")
         userId = update.message.from_user.id
         user = update.message.from_user.username
 

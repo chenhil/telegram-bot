@@ -1,5 +1,6 @@
 from telegram import ParseMode
 from plugin import PluginImpl
+from api.count import count
 import random
 
 class Meme(PluginImpl):
@@ -9,6 +10,7 @@ class Meme(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
+        count("meme")
         with open('./config/file_id.txt', "r") as f:
             lines = [line.rstrip() for line in f]
             filename = random.choice(lines)
