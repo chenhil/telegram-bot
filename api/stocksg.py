@@ -71,10 +71,12 @@ class YahooStocksG(StocksG):
                     ext_value = self._get_if_exist(external_attributes, [ext_name])
                     
                     # use the formatted value if we can, otherwise use default.
-                    if 'fmt' in ext_value:
-                        self.stock_data[name] = ext_value['fmt']
-                    else:
-                        self.stock_data[name] = ext_value
+                    if type(ext_value) is dict and 'fmt' in ext_value:
+                        ext_value = ext_value['fmt']
+                    elif type(ext_value) is int:
+                        ext_value = str(ext_value)
+                    
+                    self.stock_data[name] = ext_value
 
         except ValueError as err:
             print("Decoding JSON has failed:")

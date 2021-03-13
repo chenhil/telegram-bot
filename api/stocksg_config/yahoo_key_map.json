@@ -1,4 +1,27 @@
 {
+    "summaryProfile": {
+        "sector": {
+            "external_name": "sector"
+        },
+        "full_time_employees": {
+            "external_name": "fullTimeEmployees"
+        },
+        "city": {
+            "external_name": "city"
+        },
+        "state": {
+            "external_name": "state"
+        },
+        "country": {
+            "external_name": "country"
+        },
+        "website": {
+            "external_name": "website"
+        },
+        "company_summary": {
+            "external_name": "longBusinessSummary"
+        }
+    },
     "price": {
         "company_short_name": {
             "external_name": "shortName"
@@ -8,6 +31,9 @@
         },
         "currency_symbol": {
             "external_name": "currencySymbol"
+        },
+        "market_cap": {
+            "external_name": "marketCap"
         },
         "regular_market_price": {
             "external_name": "regularMarketPrice"
@@ -34,7 +60,7 @@
             "external_name": "regularMarketChange"
         },
         "regular_market_change_percent": {
-            "external_name": "regularMarketChangePercent" 
+            "external_name": "regularMarketChangePercent"
         },
         "post_market_change": {
             "external_name": "postMarketChange"
