@@ -9,8 +9,8 @@ class Meme(PluginImpl):
         return ["meme"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
-        count("meme")
         with open('./config/file_id.txt', "r") as f:
             lines = [line.rstrip() for line in f]
             filename = random.choice(lines)

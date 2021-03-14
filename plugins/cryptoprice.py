@@ -18,9 +18,9 @@ class Cryptoprice(PluginImpl):
     def get_cmds(self):
         return ["p"]
 
+    @PluginImpl.save_data
     @PluginImpl.send_typing
     def get_action(self, update, context):
-        count("p")
         if len(context.args) != 1:
             update.message.reply_text(
                 text=f"Usage:\n{self.get_usage()}",
