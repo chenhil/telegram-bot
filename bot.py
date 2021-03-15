@@ -90,8 +90,5 @@ class Bot():
 
 
 
-
-
-
 if __name__ == '__main__':
     bot2 = Bot()
