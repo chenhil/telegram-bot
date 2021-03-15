@@ -2,8 +2,7 @@ from telegram import ParseMode
 from plugin import PluginImpl
 from api.s3 import S3
 import os
-import random, logging
-
+import random, logging, string
 
 class Save(PluginImpl):
     def get_cmds(self):
@@ -25,7 +24,7 @@ class Save(PluginImpl):
         photo = update.message.reply_to_message.photo[-1]
         newFile = update.message.bot.get_file(photo.file_id)
         fileName = newFile.download()
-        S3().uploadFile(fileName)
+        S3().uploadFile(fileName, ''.join(random.sample(string.ascii_uppercase, 6)) + fileName)
         # Delete local file after upload
         self._removeFile(fileName)
 
@@ -34,7 +33,7 @@ class Save(PluginImpl):
         newFile = update.message.bot.get_file(document.file_id)
         fileName = newFile.download()
         S3().uploadFile(fileName)
-        newFile.download(fileName)
+        newFile.download(fileName, ''.join(random.sample(string.ascii_uppercase, 6)) + fileName)
         # Delete local file after upload
         self._removeFile(fileName)        
 
