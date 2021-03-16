@@ -10,9 +10,9 @@ class Dumb(PluginImpl):
     def get_cmds(self):
         return ["dumb"]
 
-    @PluginImpl.save_data
     @PluginImpl.send_typing
     def get_action(self, update, context):
+        count("dumb")
         person_tag = ' '.join(context.args)
         if update.message.reply_to_message is not None and update.message.reply_to_message.text is not None:
             text_message = ''.join(random.choice((str.upper, str.lower))(c) for c in update.message.reply_to_message.text)

@@ -18,9 +18,9 @@ class Index(PluginImpl):
     def get_cmds(self):
         return ["index"]
 
-    @PluginImpl.save_data
     @PluginImpl.send_typing
     def get_action(self, update, context):
+        count("index")
         # Needs to be moved into a cache
         CoinGecko().getMarketData()
 

@@ -10,9 +10,7 @@ class Meme(PluginImpl):
         return ["meme"]
 
     @PluginImpl.send_typing
-    @PluginImpl.save_data
     def get_action(self, update, context):
-
         randomMeme = S3().getFile()
         if '.mp4' in randomMeme:
             update.message.bot.send_animation(chat_id = update.effective_chat.id, animation=randomMeme)

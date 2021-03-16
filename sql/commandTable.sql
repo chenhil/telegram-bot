@@ -1,7 +1,0 @@
-CREATE TABLE IF NOT EXISTS command (
-	user_id INTEGER NOT NULL,
-	chat_id INTEGER,
-	command TEXT NOT NULL,
-    username TEXT NOT NULL,
-	date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)

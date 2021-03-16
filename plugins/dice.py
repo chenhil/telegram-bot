@@ -8,7 +8,7 @@ class Dice(PluginImpl):
     def get_cmds(self):
         return ["roll"]
 
-    @PluginImpl.save_data
     @PluginImpl.send_typing
     def get_action(self, update, context):
+        count("roll")
         context.bot.send_dice(emoji='🎲', chat_id=update.effective_chat.id)

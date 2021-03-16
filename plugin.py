@@ -66,21 +66,6 @@ class PluginImpl(PluginInterface):
             return func(self, update, context)
         return _send_typing_action
 
-    @classmethod
-    def save_data(cls, func):
-        def _save_data(self, update, context):
-            if update.message:
-                usr = update.message.from_user
-                cmd = update.message.text
-                cht = update.message.chat
-            else:
-                logging.warning(f"Can't save usage - {update}")
-                return func(self, update, context)
-            logging.info("Saving " + usr + " " + cht +  " " + cmd)
-            self.tgb.db.save_data(usr, cht, cmd)
-            return func(self, update, context)
-        return _save_data
-                
     def add_plugin(self):
         self.tgb.dispatcher.add_handler(
             CommandHandler(
