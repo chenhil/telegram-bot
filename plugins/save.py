@@ -8,6 +8,7 @@ class Save(PluginImpl):
     def get_cmds(self):
         return ["save"]
 
+    @PluginImpl.save_data
     @PluginImpl.send_typing
     def get_action(self, update, context):
         if update.message.reply_to_message is None:

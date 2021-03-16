@@ -1,0 +1,1 @@
+UPDATE command set count = count + 1 WHERE command = '%s' or command_2 = '%s'

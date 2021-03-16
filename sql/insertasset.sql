@@ -1,0 +1,1 @@
+INSERT INTO Asset(user_id, asset_id, profile_link) VALUES (%s, %s, %s)

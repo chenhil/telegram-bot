@@ -7,12 +7,11 @@ class Asset(PluginImpl):
     def get_cmds(self):
         return ["a", "asset"]
 
+    @PluginImpl.save_data
     @PluginImpl.send_typing
     def get_action(self, update, context):
-        count("a")
         userId = update.message.from_user.id
         user = update.message.from_user.username
-
         response = "@{} Profile ".format(user)
 
         if len(context.args) == 0:
@@ -32,11 +31,15 @@ class Asset(PluginImpl):
 
 
     def getAsset(self, user_id, asset_id):
-        response = Coinstats().getAsset(user_id, asset_id)
-        return response
+        response = self.tgb.db.execute_query(self.tgb.db.getCoinStat,user_id,asset_id)
+        if response['result'] is not None:
+            return Coinstats().getAsset(response['result'][0][0])
+        return None
 
     def saveAsset(self, user_id, asset_id, link):
-        response = Coinstats().saveAsset(user_id, asset_id, link)
+        # delete if it exist
+        response = self.tgb.db.execute_query(self.tgb.db.deleteCoinStat, user_id, asset_id)
+        response = self.tgb.db.execute_query(self.tgb.db.insertCoinStat, user_id, asset_id, link)
         return response
 
 

@@ -3,9 +3,9 @@ import os
 import uuid
 import logging
 import importlib
-import re
 from telegram.ext import Updater, InlineQueryHandler, MessageHandler, Filters
-import psycopg2
+from database import Database
+
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -21,6 +21,7 @@ class Bot():
         config = configparser.ConfigParser()
         config.read("./config/config.ini")
         apiKey = os.getenv('apiKey') if 'apiKey' in os.environ else config['telegram']['apiKey']
+        dbKey = os.getenv('DATABASE_URL') if 'DATABASE_URL' in os.environ else config['postgreSQL']['DATABASE_URL']
         try:
             self.updater = Updater(apiKey, use_context=True)
         except Exception as e:
@@ -30,7 +31,7 @@ class Bot():
         self.dispatcher = self.updater.dispatcher
 
         # connect DB
-        self.connectDB(config)
+        self.db = Database(dbKey)
 
         # Load classes in folder 'plugins'
         self._load_plugins()
@@ -65,28 +66,28 @@ class Bot():
             msg = f"File '{file}' can't be loaded as a plugin: {ex}"
             logging.warning(msg)
 
-    def connectDB(self, config):
-        try:
-            dbKey = os.getenv('DATABASE_URL') if 'DATABASE_URL' in os.environ else config['postgreSQL']['DATABASE_URL']
-            connection = psycopg2.connect(dbKey,sslmode='require')
-            cursor = connection.cursor()
-            # Print PostgreSQL details
-            print("PostgreSQL server information")
-            print(connection.get_dsn_parameters(), "\n")
-            # Executing a SQL query
-            cursor.execute("SELECT version();")
-            # Fetch result
-            record = cursor.fetchone()
-            print("You are connected to - ", record, "\n")
+    # def connectDB(self, config):
+    #     try:
+    #         dbKey = os.getenv('DATABASE_URL') if 'DATABASE_URL' in os.environ else config['postgreSQL']['DATABASE_URL']
+    #         connection = psycopg2.connect(dbKey,sslmode='require')
+    #         cursor = connection.cursor()
+    #         # Print PostgreSQL details
+    #         print("PostgreSQL server information")
+    #         print(connection.get_dsn_parameters(), "\n")
+    #         # Executing a SQL query
+    #         cursor.execute("SELECT version();")
+    #         # Fetch result
+    #         record = cursor.fetchone()
+    #         print("You are connected to - ", record, "\n")
 
-            ###########TESTING QUERY###############
-            # print test table
-            cursor.execute("SELECT * FROM ACCOUNT;")
-            record = cursor.fetchone()
-            print(record)
+    #         ###########TESTING QUERY###############
+    #         # print test table
+    #         cursor.execute("SELECT * FROM ACCOUNT;")
+    #         record = cursor.fetchone()
+    #         print(record)
 
-        except Exception as e:
-            print(e)
+    #     except Exception as e:
+    #         print(e)
 
 
 
