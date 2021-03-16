@@ -1,6 +1,7 @@
 from telegram import ParseMode
 from plugin import PluginImpl
 from api.count import count
+from api.s3 import S3
 import random
 
 class Meme(PluginImpl):
@@ -11,14 +12,12 @@ class Meme(PluginImpl):
     @PluginImpl.send_typing
     @PluginImpl.save_data
     def get_action(self, update, context):
-        with open('./config/file_id.txt', "r") as f:
-            lines = [line.rstrip() for line in f]
-            filename = random.choice(lines)
-            print(filename)
-            if "document" in filename:
-                update.message.bot.send_animation(chat_id = update.effective_chat.id, animation=filename.replace("document_", ""))
-            else:
-                update.message.bot.send_photo(chat_id = update.effective_chat.id, photo=filename.replace("photo_", ""))
+
+        randomMeme = S3().getFile()
+        if '.mp4' in randomMeme:
+            update.message.bot.send_animation(chat_id = update.effective_chat.id, animation=randomMeme)
+        else:
+            update.message.bot.send_photo(chat_id = update.effective_chat.id, photo=randomMeme)
     
     def get_usage(self):
         return f"`/{self.get_cmds()[0]}`\n"

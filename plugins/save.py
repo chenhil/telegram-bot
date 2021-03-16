@@ -1,6 +1,8 @@
 from telegram import ParseMode
 from plugin import PluginImpl
-import random
+from api.s3 import S3
+import os
+import random, logging, string
 
 class Save(PluginImpl):
     def get_cmds(self):
@@ -14,23 +16,36 @@ class Save(PluginImpl):
                 text=f"Usage:\n{self.get_usage()}",
                 parse_mode=ParseMode.MARKDOWN)
             return
-        fileName = ""
         if len(update.message.reply_to_message.photo) != 0:
-            photo = update.message.reply_to_message.photo[-1]
-            newFile = update.message.bot.get_file(photo.file_id)
-            fileName = "photo_" + photo.file_id
+            self._savePhoto(update)
         elif update.message.reply_to_message.document != None:
-            document = update.message.reply_to_message.document
-            newFile = update.message.bot.get_file(document.file_id)
-            fileName = "document_" + document.file_id
-        with open("./config/file_id.txt", "a") as myfile:
-            myfile.write(fileName + "\n")
+            self._saveDocument(update)
         
+    def _savePhoto(self, update):
+        photo = update.message.reply_to_message.photo[-1]
+        newFile = update.message.bot.get_file(photo.file_id)
+        fileName = newFile.download()
+        S3().uploadFile(fileName, ''.join(random.sample(string.ascii_uppercase, 6)) + fileName)
+        # Delete local file after upload
+        self._removeFile(fileName)
+
+    def _saveDocument(self, update):
+        document = update.message.reply_to_message.document
+        newFile = update.message.bot.get_file(document.file_id)
+        fileName = newFile.download()
+        S3().uploadFile(fileName)
+        newFile.download(fileName, ''.join(random.sample(string.ascii_uppercase, 6)) + fileName)
+        # Delete local file after upload
+        self._removeFile(fileName)        
+
     def get_usage(self):
         return f"`reply to a image/gif with /{self.get_cmds()[0]}`\n"
 
     def get_description(self):
         return "Save a meme"
+
+    def _removeFile(self, fileName):
+        os.remove(fileName)
 
     def get_category(self):
         return None
