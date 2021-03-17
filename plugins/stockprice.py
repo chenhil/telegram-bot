@@ -200,6 +200,7 @@ class Stockprice(PluginImpl):
     def _get_regular_market_price_markdown(self, stock_data):
         output = "Market Status - Regular Hours {0}\n".format(emo.CITY) \
             + "{0:<10} {1:<10}\n".format("Price:", self._getPrice(stock_data, 'regular_market'))
+        return output
 
     def _get_post_market_price_markdown(self, stock_data):
         output = "Market Status - After-Hours {0}\n".format(emo.DUSK_CITY)
