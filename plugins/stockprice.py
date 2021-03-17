@@ -144,23 +144,22 @@ class Stockprice(PluginImpl):
         output = ""
         current_time = get_current_time()
         try:
-            output = (str('```')) + "\n" + self._getSymbol(stock_data) + "\n" \
-                + "Market Prices" + "\n"
+            output = (str('```')) + "\n" + self._getSymbol(stock_data) + "\n\n"
             
             if is_pre_market_hours(current_time):
-                output += self._getPricePreMarketHours(stock_data) + "\n" \
-                    + "Yesterday's Prices " + "\n"
-            
-            output += self._getPriceRegularHours(stock_data) + "\n"
+                output += self._get_pre_market_price_markdown(stock_data) + "\n"
+            elif is_post_market_hours(current_time):
+                output += self._get_post_market_price_markdown(stock_data) + "\n"
+            elif is_market_closed(current_time):
+                output += self._get_closed_market_markdown(stock_data) + "\n"
+            else:
+                output += self._get_regular_market_price_markdown(stock_data) + "\n"
 
-            if is_post_market_hours(current_time):
-                output += self._getPriceAfterHours(stock_data) + "\n\n"
-    
             output += self._getOpen(stock_data) + "\n" \
                 + self._getPriceHigh(stock_data) + "\n" \
                 + self._getPriceLow(stock_data) + "\n" \
                 + self._getVolume(stock_data) + "\n" \
-                + self._getAvgVolume(stock_data) + "\n\n" \
+                + self._getAvgVolume(stock_data) + "\n" \
                 + self._get52WKHigh(stock_data) + "\n" \
                 + self._get52WKLow(stock_data) + "\n" + (str('```'))
         except Exception as err:
@@ -187,17 +186,32 @@ class Stockprice(PluginImpl):
             arrow = emo.UP_ARROW
         return arrow
 
-    def _getPricePreMarketHours(self, stock_data):
+    def _get_pre_market_price_markdown(self, stock_data):
+        output = "Market Status - Pre-Market {0}\n".format(emo.SUNRISE_CITY)
         if stock_data['has_pre_market_data'] == True:
-            return "{0:<10} {1:<10}".format("Pre: ", self._getPrice(stock_data, 'pre_market'))
+            output += "{0:<10} {1:<10}\n".format("Price:", self._getPrice(stock_data, 'pre_market')) \
+            + "Yesterday's Prices " + "\n"
+            + "{0:<10} {1:<10}\n".format("After:", self._getPrice(stock_data, 'regular_market'))
+            + "{0:<10} {1:<10}\n".format("Regular:", self._getPrice(stock_data, 'post_market'))
+        return output
 
-    def _getPriceRegularHours(self, stock_data):
-        return "{0:<10} {1:<10}".format("Regular: ", self._getPrice(stock_data, 'regular_market'))
+    def _get_regular_market_price_markdown(self, stock_data):
+        output = "Market Status - Regular Hours {0}\n".format(emo.CITY) \
+            + "{0:<10} {1:<10}\n".format("Price:", self._getPrice(stock_data, 'regular_market'))
 
-    def _getPriceAfterHours(self, stock_data):
+    def _get_post_market_price_markdown(self, stock_data):
+        output = "Market Status - After-Hours {0}\n".format(emo.DUSK_CITY)
         if stock_data['has_post_market_data'] == True:
-            return "{0:<10} {1:<10}".format("After: ", self._getPrice(stock_data, 'post_market'))
-        return ""
+            output += "{0:<10} {1:<10}\n".format("After:", self._getPrice(stock_data, 'post_market')) \
+                + "{0:<10} {1:<10}\n".format("Regular:", self._getPrice(stock_data, 'regular_market'))
+        return output
+
+    def _get_closed_market_markdown(self, stock_data):
+        output = "Market Status - Closed {0}\n".format(emo.NIGHT_CITY) 
+        if stock_data['has_post_market_data'] == True:
+            output += "{0:<10} {1:<10}\n".format("After:", self._getPrice(stock_data, 'post_market')) \
+                + "{0:<10} {1:<10}\n".format("Regular:", self._getPrice(stock_data, 'regular_market'))
+        return output
 
     def _getOpen(self, stock_data):
         return "{0:<10} {1:<10}".format("Open:", stock_data['market_open_price'])
@@ -247,7 +261,19 @@ def is_pre_market_hours(current_time):
 def is_post_market_hours(current_time):
     day_start = get_day_start_seconds(current_time)
     current_time_seconds = int(current_time.timestamp())
-    return is_between_interval(day_start + POST_MARKET_START, day_start + PRE_MARKET_START, current_time_seconds)
+    return is_between_interval(day_start + POST_MARKET_START, day_start + MARKET_END, current_time_seconds)
+
+# Before pre-market of next day and after current day's close
+def is_market_closed(current_time):
+    day_start = get_day_start_seconds(current_time)
+    current_time_seconds = int(current_time.timestamp())
+
+    # After midnight...
+    if current_time_seconds < day_start + PRE_MARKET_START:
+        return is_between_interval(day_start, day_start + PRE_MARKET_START, current_time_seconds)
+    # Before midnight..
+    else:
+        return current_time_seconds >= day_start + MARKET_END
 
 # Non-inclusive [ intervalStart , intervalEnd ) interval checking
 # If a time to check is not given, this defaults to the current time.
