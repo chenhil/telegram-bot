@@ -13,9 +13,9 @@ from api.count import count
 
 # US_MARKET times in seconds
 US_EASTERN_TIMEZONE = timezone('US/Eastern')
-PRE_MARKET_START = 28800
-REGULAR_MARKET_START = 48600
-POST_MARKET_START = 72000
+PRE_MARKET_START = 14400
+REGULAR_MARKET_START = 34200
+POST_MARKET_START = 57600
 MARKET_END = 86400
 
 class Stockprice(PluginImpl):
@@ -31,7 +31,7 @@ class Stockprice(PluginImpl):
         }
 
     def get_cmds(self):
-        return ["sp"]
+        return ["sp", "s"]
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
@@ -188,11 +188,13 @@ class Stockprice(PluginImpl):
 
     def _get_pre_market_price_markdown(self, stock_data):
         output = "Market Status - Pre-Market {0}\n".format(emo.SUNRISE_CITY)
+        
         if stock_data['has_pre_market_data'] == True:
-            output += "{0:<10} {1:<10}\n".format("Price:", self._getPrice(stock_data, 'pre_market')) \
-            + "Yesterday's Prices " + "\n"
-            + "{0:<10} {1:<10}\n".format("After:", self._getPrice(stock_data, 'regular_market'))
-            + "{0:<10} {1:<10}\n".format("Regular:", self._getPrice(stock_data, 'post_market'))
+            output += "{0:<10} {1:<10}\n\n".format("Price:", self._getPrice(stock_data, 'pre_market'))
+
+        output += "Yesterday's Prices " + "\n" \
+        + "{0:<10} {1:<10}\n".format("After:", self._getPrice(stock_data, 'regular_market')) \
+        + "{0:<10} {1:<10}\n".format("Regular:", self._getPrice(stock_data, 'post_market'))
         return output
 
     def _get_regular_market_price_markdown(self, stock_data):
@@ -247,10 +249,11 @@ class Stockprice(PluginImpl):
         return "{0:<10} {1:<10}".format(label, text)
 
 def get_current_time():
-    return datetime.now(tz=US_EASTERN_TIMEZONE)
+    current_time = datetime.now(tz=US_EASTERN_TIMEZONE)
+    return current_time
 
 def get_day_start_seconds(current_time):
-    day_start = current_time.replace(hour=0, second=0, microsecond=0, tzinfo=US_EASTERN_TIMEZONE)
+    day_start = current_time.replace(hour=0, minute=0, second=0, microsecond=0)
     return int(day_start.timestamp())
 
 def is_pre_market_hours(current_time):
