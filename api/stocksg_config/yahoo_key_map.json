@@ -56,6 +56,12 @@
         "regular_market_volume": {
             "external_name": "regularMarketVolume"
         },
+        "pre_market_change": {
+            "external_name": "preMarketChange"
+        },
+        "pre_market_change_percent": {
+            "external_name": "preMarketChangePercent"
+        },
         "regular_market_change": {
             "external_name": "regularMarketChange"
         },
