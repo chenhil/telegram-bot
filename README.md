@@ -29,6 +29,6 @@ meme - send a dank meme
 dumb - mock someone for saying something stupid
 index - top coin summary
 donate - we're poor plz donate
-donater - leadership board of top donors 
+donator - leadership board of top donors 
 tw - get latest tweets for crypto coin
 ```
