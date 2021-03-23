@@ -7,7 +7,14 @@ class Donator(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
-        response = "cashapp: $b0ssie\n1. @icahnn  - $35 cashapp\n2. @ScrubMasterAsh - $30 cashapp\n3. @i123sb - $25 bnb\n4. @GQvisions - $5 cashapp\n5. @Karan - $1 cashapp\n"
+        response = """
+            cashapp: $b0ssie\n
+            1. @ScrubMasterAsh - $36 cashapp\n
+            2. @icahnn  - $35 cashapp\n
+            3. @i123sb - $25 bnb\n
+            4. @GQvisions - $10 cashapp\n
+            5. @Karan - $1 cashapp\n
+        """
         print(response)
 
         try:
