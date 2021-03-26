@@ -11,13 +11,17 @@ class CoinGecko():
     def __init__(self):
         self.cg = CoinGeckoAPI()
 
+
     def getPrice(self, symbol):
         responseJson = self.getCoinById(symbol)
         response = self.cg.get_price(symbol, vs_currencies='usd', include_market_cap='true', include_24hr_vol='true', include_24hr_change='true', include_last_updated_at='true')
 
         responseJson['volume24'] = millify(response[symbol]['usd_24h_vol'], precision = 2)
         return responseJson
-    
+
+    def getCoinData(self, symbol):
+        return self.cg.get_coin_by_id(id = symbol['id'], localization = 'false', tickers = 'false', market_data = 'false')
+         
     def getCoinById(self, symbol):
         response = self.cg.get_coin_by_id(symbol)
         responseJson = {}
@@ -40,7 +44,7 @@ class CoinGecko():
             if symbol.upper() == item['name'].upper() or symbol.upper() == item['symbol'].upper():
                 return item
         return None
-
+    
     
     def getMarketData(self):
         try:

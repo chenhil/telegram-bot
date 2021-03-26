@@ -1,6 +1,6 @@
 from plexapi.myplex import MyPlexAccount
 
-class Plex():
+class PlexAPI():
     def __init__(self):
         self.movies = []
         self.shows = []

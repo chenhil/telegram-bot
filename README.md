@@ -31,4 +31,5 @@ index - top coin summary
 donate - we're poor plz donate
 donator - leadership board of top donors 
 tw - get latest tweets for crypto coin
+bio - get bio for crypto coin
 ```
