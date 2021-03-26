@@ -9,6 +9,8 @@ class Donator(PluginImpl):
     def get_action(self, update, context):
         response = """
             cashapp: $b0ssie
+            BNB: 0xF6c07cE91e44f8A9E88Af880BEFd3bcf2b492F22
+
             1. @i123sb - $75 cashapp
             2. @ScrubMasterAsh - $36 cashapp
             3. @icahnn  - $35 cashapp
