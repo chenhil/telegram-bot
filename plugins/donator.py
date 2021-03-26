@@ -10,6 +10,7 @@ class Donator(PluginImpl):
         response = """
             cashapp: $b0ssie
             BNB: 0xF6c07cE91e44f8A9E88Af880BEFd3bcf2b492F22
+            Eth: 0xcc5BC3Fe73e8CD00B30C889f6b685a3de1D313ce
 
             1. @i123sb - $75 cashapp
             2. @ScrubMasterAsh - $36 cashapp
