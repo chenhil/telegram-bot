@@ -28,4 +28,4 @@ class Donator(PluginImpl):
     def _getMarkdown(self, response):
         if response is None:
             return response
-        return response.replace(".", "\\.").replace("-", "\\-").replace("|", "\\|")
+        return response.replace(".", "\\.").replace("-", "\\-").replace("|", "\\|").replace("(","\\(").replace(")","\\)")
