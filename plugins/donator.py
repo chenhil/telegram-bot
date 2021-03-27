@@ -4,17 +4,18 @@ from plugin import PluginImpl, Keyword
 
 class Donator(PluginImpl):
     def get_cmds(self):
-        return ["donator", "list", "top"]
+        return ["donator", "list", "top", "dl"]
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
         response = """
         Donation List
-        \n1. @i123sb - $75 cashapp
-        \n2. @ScrubMasterAsh - $36 cashapp
-        \n3. @icahnn  - $35 cashapp
-        \n4. @GQvisions - $15 cashapp
-        \n5. @Karan - $1 cashapp
+        \n1. @FixmerT - $511 (0.3 eth)
+        \n2. @i123sb - $75 cashapp
+        \n3. @ScrubMasterAsh - $36 cashapp
+        \n4. @icahnn  - $35 cashapp
+        \n5. @GQvisions - $15 cashapp
+        \n6. @Karan - $1 cashapp
         """
         print(response)
 
