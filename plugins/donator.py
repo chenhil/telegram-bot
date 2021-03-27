@@ -10,12 +10,12 @@ class Donator(PluginImpl):
     def get_action(self, update, context):
         response = """
         Donation List
-        \n1. @FixmerT - $511 (0.3 eth)
-        \n2. @i123sb - $75 cashapp
-        \n3. @ScrubMasterAsh - $36 cashapp
-        \n4. @icahnn  - $35 cashapp
-        \n5. @GQvisions - $15 cashapp
-        \n6. @Karan - $1 cashapp
+        1. @FixmerT - $511 (0.3 eth)
+        2. @i123sb - $75 cashapp
+        3. @ScrubMasterAsh - $36 cashapp
+        4. @icahnn  - $35 cashapp
+        5. @GQvisions - $15 cashapp
+        6. @Karan - $1 cashapp
         """
         print(response)
 
