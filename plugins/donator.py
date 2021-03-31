@@ -15,7 +15,8 @@ class Donator(PluginImpl):
         3. @ScrubMasterAsh - $36 cashapp
         4. @icahnn  - $35 cashapp
         5. @GQvisions - $15 cashapp
-        6. @Karan - $1 cashapp
+        6. @ldealized - $10 cashapp
+        7. @Karan - $1 cashapp
         """
         print(response)
 
