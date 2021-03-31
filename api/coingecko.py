@@ -20,7 +20,7 @@ class CoinGecko():
         return responseJson
 
     def getCoinData(self, symbol):
-        return self.cg.get_coin_by_id(id = symbol['id'], localization = 'false', tickers = 'false', market_data = 'false')
+        return self.cg.get_coin_by_id(id = symbol['id'], localization = 'false', tickers = 'true', market_data = 'true')
          
     def getCoinById(self, symbol):
         response = self.cg.get_coin_by_id(symbol)
