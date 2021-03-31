@@ -7,7 +7,7 @@ class Upcoming():
         pass
 
     def getEvents(self, ticker):
-        url = 'https://coinmarketcal.com/en/?form%5Bdate_range%5D=08%2F03%2F2021+-+01%2F08%2F2024&form%5Bkeyword%5D=' + ticker
+        url = 'https://coinmarketcal.com/en/?form%5Bdate_range%5D=31%2F03%2F2021+-+01%2F08%2F2024&form%5Bkeyword%5D={}&form%5Bsort_by%5D=&form%5Bsubmit%5D='.format(ticker)
         headers = {
             'User-Agent': 'My User Agent 1.0'
         }
