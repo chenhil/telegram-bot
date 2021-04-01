@@ -22,9 +22,9 @@ class Note(PluginImpl):
     def _getMarkdown(self, response):
         if response is None:
             return response
-        response = response.replace(".", "\\.").replace("-", "\\-").replace("|", "\\|")
+        response = response.replace(".", "\\.").replace("|", "\\|")
         response = response.replace("(", "\\(").replace(")", "\\)").replace("!", "\\!")
         response = response.replace("@", "\\@").replace("#", "\\#").replace("$", "\\!")
         response = response.replace("%", "\\%").replace("*", "\\*").replace("-", "\\-")
-        response = response.replace("+", "\\+").replace("[", "\\[").replace("]", "\\]")
+        response = response.replace("\+", "\\+").replace("[", "\\[").replace("]", "\\]")
         return response
