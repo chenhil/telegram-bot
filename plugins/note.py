@@ -17,7 +17,7 @@ class Note(PluginImpl):
         bsObj = BeautifulSoup(r.text, 'html.parser')
         notes = bsObj.find('textarea', {'name':'padText'}).text
         update.message.bot.send_message(chat_id = update.effective_chat.id,
-            text=self._getMarkdown(notes), parse_mode=ParseMode.MARKDOWN_V2, , disable_web_page_preview=True)
+            text=self._getMarkdown(notes), parse_mode=ParseMode.MARKDOWN_V2)
 
     def _getMarkdown(self, response):
         if response is None:
