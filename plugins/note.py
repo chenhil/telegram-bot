@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 class Note(PluginImpl):
     def get_cmds(self):
-        return ["note", "n"]
+        return ["note", "n", "notes"]
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
