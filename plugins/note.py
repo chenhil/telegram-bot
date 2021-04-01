@@ -11,10 +11,11 @@ class Note(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
-        url = 'http://www.itextpad.com/nvzVwBUJ0T'
+        url = 'https://itextpad.com/tVNQCrp0om'
         headers = {'User-Agent': 'My User Agent 1.0'}
         r = requests.get(url, headers=headers)
         bsObj = BeautifulSoup(r.text, 'html.parser')
+        print(bsObj)
         notes = bsObj.find('textarea', {'name':'padText'}).text
         update.message.bot.send_message(chat_id = update.effective_chat.id,
             text=self._getMarkdown(notes), parse_mode=ParseMode.MARKDOWN_V2)
