@@ -22,7 +22,7 @@ class Stockprice(PluginImpl):
 
     def __init__(self, telegram_bot):
         super().__init__(telegram_bot)
-        self.tgb.dispatcher.add_handler(CallbackQueryHandler(self._callback))
+        self.tgb.dispatcher.add_handler(CallbackQueryHandler(self._callback, pattern='stockprice'))
         
         self.__dispatch_table = {
             'stockprice': self._get_stock_price,
@@ -35,7 +35,6 @@ class Stockprice(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
-        count("sp")
         if len(context.args) != 1:
             update.message.reply_text(
                 text=f"Usage:\n{self.get_usage()}",

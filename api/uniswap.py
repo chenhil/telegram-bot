@@ -60,7 +60,7 @@ class Uniswap():
         if symbol not in self.Tokens:
             return None
 
-        address = self.Tokens[symbol]
+        address = self.Tokens[symbol]['address']
         response = {}
         now = int(time.time())
 
@@ -133,6 +133,7 @@ class Uniswap():
         response['percentChange24h'] = var_1d_str
         response['percentChange7d'] = var_7d_str
         response['symbol'] = symbol
+        response['name'] = self.Tokens[symbol]['name']
     
         return response
 
@@ -142,7 +143,7 @@ class Uniswap():
             response.raise_for_status()
             jsonResponse = json.loads(response.content.decode('utf-8'))
             for tokeninfo in jsonResponse['tokens']:
-                self.Tokens[tokeninfo['symbol']] = tokeninfo['address']
+                self.Tokens[tokeninfo['symbol']] = {'address': tokeninfo['address'], 'name': tokeninfo['name']}
         except Exception as e:
             logging.error(e)
             raise e

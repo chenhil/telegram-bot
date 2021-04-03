@@ -20,7 +20,6 @@ class Index(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
-        count("index")
         # Needs to be moved into a cache
         CoinGecko().getMarketData()
 

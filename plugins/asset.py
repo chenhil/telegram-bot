@@ -9,7 +9,6 @@ class Asset(PluginImpl):
 
     @PluginImpl.send_typing
     def get_action(self, update, context):
-        count("a")
         userId = update.message.from_user.id
         user = update.message.from_user.username
 

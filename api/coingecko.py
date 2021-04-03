@@ -23,13 +23,16 @@ class CoinGecko():
         return self.cg.get_coin_by_id(id = symbol['id'], localization = 'false', tickers = 'true', market_data = 'true')
          
     def getCoinById(self, symbol):
-        response = self.cg.get_coin_by_id(symbol)
+        response = self.cg.get_coin_by_id(symbol, localization = 'false', developer_data='false', community_data='false')
         responseJson = {}
-
         responseJson["symbol"] = response['symbol'].upper()
+        responseJson["name"] = response['name'].upper()
         responseJson['price'] = "$"+prettify(str(response["market_data"]['current_price']['usd']))
         responseJson["marketCap"] = millify(response["market_data"]['market_cap']['usd'], precision = 2)
-        responseJson['percentChange1h'] = str(round(response["market_data"]["price_change_percentage_1h_in_currency"]["usd"], 2))+ "%"
+        if len(response["market_data"]["price_change_percentage_1h_in_currency"]) == 0 or "usd" not in response["market_data"]["price_change_percentage_1h_in_currency"]:
+            responseJson['percentChange1h'] = "?"
+        else: 
+            responseJson['percentChange1h'] = str(round(response["market_data"]["price_change_percentage_1h_in_currency"]["usd"], 2))+ "%"
         responseJson['percentChange24h'] = str(round(response["market_data"]["price_change_percentage_24h"], 2))+ "%"
         responseJson['percentChange7d'] = str(round(response["market_data"]["price_change_percentage_7d"], 2))+ "%"
         responseJson["priceLow"] = "$" + prettify(str(response["market_data"]['low_24h']['usd']))
@@ -40,10 +43,11 @@ class CoinGecko():
         
     def getCoinList(self, symbol):
         data = self.cg.get_coins_list()
+        result = []
         for item in data:
             if symbol.upper() == item['name'].upper() or symbol.upper() == item['symbol'].upper():
-                return item
-        return None
+                result.append(item)
+        return result
     
     
     def getMarketData(self):
