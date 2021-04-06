@@ -19,10 +19,12 @@ class Bio(PluginImpl):
                 parse_mode=ParseMode.MARKDOWN)
             return
         try:
-            coinSymbol = CoinGecko().getCoinList(context.args[0])
-            coinData = CoinGecko().getCoinData(coinSymbol)
-            output = self._getMarkDownForBio(coinSymbol, coinData)
-
+            coinSymbols = CoinGecko().getCoinList(context.args[0])
+            output = ''
+            for coinSymbol in coinSymbols:
+                coinData = CoinGecko().getCoinData(coinSymbol)
+                output += self._getMarkDownForBio(coinSymbol, coinData) + "\n\n"
+    
             update.message.bot.send_message(chat_id = update.effective_chat.id, 
             text=output, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
