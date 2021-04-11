@@ -11,9 +11,9 @@ class Donator(PluginImpl):
         response = """
         Donation List
         1. @FixmerT - $511 (0.3 eth)
-        2. @i123sb - $95 cashapp
+        2. @i123sb - $75 cashapp
         3. @ScrubMasterAsh - $36 cashapp
-        4. @icahnn  - $35 cashapp
+        4. @icahnn  - $55 cashapp
         5. @GQvisions - $15 cashapp
         6. @ldealized - $10 cashapp
         7. @Karan - $1 cashapp
