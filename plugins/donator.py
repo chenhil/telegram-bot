@@ -14,7 +14,7 @@ class Donator(PluginImpl):
         2. @i123sb - $75 cashapp
         3. @ScrubMasterAsh - $36 cashapp
         4. @icahnn  - $55 cashapp
-        5. @GQvisions - $15 cashapp
+        5. @GQvisions - $40 cashapp
         6. @ldealized - $10 cashapp
         7. @Karan - $1 cashapp
         """
