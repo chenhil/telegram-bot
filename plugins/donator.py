@@ -16,7 +16,8 @@ class Donator(PluginImpl):
         4. @i123sb - $75 cashapp
         5. @GQvisions - $40 cashapp
         6. @ldealized - $10 cashapp
-        7. @Karan - $1 cashapp
+        7. @joeystackspips - $2 eth
+        8. @Karan - $1 cashapp
         """
         print(response)
 
