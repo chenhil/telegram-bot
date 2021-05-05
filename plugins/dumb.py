@@ -11,6 +11,7 @@ class Dumb(PluginImpl):
         return ["dumb"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         person_tag = ' '.join(context.args)
         if update.message.reply_to_message is not None and update.message.reply_to_message.text is not None:

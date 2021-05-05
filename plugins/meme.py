@@ -10,6 +10,7 @@ class Meme(PluginImpl):
         return ["meme"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         randomMeme = S3().getFile()
         if '.mp4' in randomMeme:

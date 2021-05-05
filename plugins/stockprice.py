@@ -34,6 +34,7 @@ class Stockprice(PluginImpl):
         return ["sp", "s"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         if len(context.args) != 1:
             update.message.reply_text(

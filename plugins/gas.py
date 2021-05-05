@@ -9,6 +9,7 @@ class Gas(PluginImpl):
         return ["gas"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         headers = {'User-Agent': 'My User Agent 1.0'}
         response = requests.get('https://www.gasnow.org/api/v3/gas/price?utm_source=soulmachine', headers=headers)

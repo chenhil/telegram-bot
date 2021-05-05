@@ -5,7 +5,8 @@ import logging
 import importlib
 import re
 from telegram.ext import Updater, InlineQueryHandler, MessageHandler, Filters
-import psycopg2
+from database import Database
+
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -28,6 +29,8 @@ class Bot():
 
         self.job_queue = self.updater.job_queue
         self.dispatcher = self.updater.dispatcher
+
+        self.db = Database()
 
         # Load classes in folder 'plugins'
         self._load_plugins()

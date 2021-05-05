@@ -7,6 +7,7 @@ class Donator(PluginImpl):
         return ["donator", "list", "top", "dl"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         response = """
         Donation List

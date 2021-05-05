@@ -8,6 +8,7 @@ class Upcoming(PluginImpl):
         return ["upcoming", "up"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         if len(context.args) != 1:
             update.message.reply_text(  

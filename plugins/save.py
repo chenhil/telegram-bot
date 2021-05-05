@@ -9,6 +9,7 @@ class Save(PluginImpl):
         return ["save"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         if update.message.reply_to_message is None:
             update.message.reply_text(

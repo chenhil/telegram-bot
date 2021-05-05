@@ -66,6 +66,23 @@ class PluginImpl(PluginInterface):
             return func(self, update, context)
         return _send_typing_action
 
+    @classmethod
+    def save_data(cls, func):
+        def _save_data(self, update, context):
+            if update.message:
+                fromObj = update.message.from_user
+                cmd = update.message.text
+                chatObj = update.message.chat
+                date = update.message.date
+                messageId = update.message.message_id
+            else:
+                logging.warning(f"Can't save usage - {update}")
+                return func(self, update, context)
+            # save_data(self, chatId, messageId, firstName, username, date, text)
+            self.tgb.db.save_data(messageId, fromObj, chatObj, cmd, date)
+            return func(self, update, context)
+        return _save_data        
+
     def add_plugin(self):
         self.tgb.dispatcher.add_handler(
             CommandHandler(
@@ -107,7 +124,6 @@ class PluginImpl(PluginInterface):
 
 # Keywords for messages
 class Keyword:
-
     NOTIFY = "notify"
     PREVIEW = "preview"
     QUOTE = "quote"

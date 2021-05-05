@@ -10,6 +10,7 @@ class Note(PluginImpl):
         return ["note", "n", "notes"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         url = 'https://itextpad.com/tVNQCrp0om'
         headers = {'User-Agent': 'My User Agent 1.0'}

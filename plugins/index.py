@@ -19,6 +19,7 @@ class Index(PluginImpl):
         return ["index"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         # Needs to be moved into a cache
         CoinGecko().getMarketData()

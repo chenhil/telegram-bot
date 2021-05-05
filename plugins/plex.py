@@ -7,6 +7,7 @@ class Plex(PluginImpl):
         return ["plex"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         response = PlexAPI().getMarkdown()
         update.message.bot.send_message(chat_id = update.effective_chat.id, 

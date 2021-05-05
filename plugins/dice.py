@@ -9,5 +9,6 @@ class Dice(PluginImpl):
         return ["roll"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         context.bot.send_dice(emoji='🎲', chat_id=update.effective_chat.id)

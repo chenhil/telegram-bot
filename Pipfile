@@ -18,6 +18,8 @@ psycopg2-binary = "*"
 boto3 = "*"
 graphqlclient = "*"
 python-graphql-client = "*"
+web3 = "*"
+py-solc = "*"
 
 [dev-packages]
 

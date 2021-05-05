@@ -7,6 +7,7 @@ class Donate(PluginImpl):
         return ["d", "donate"]
 
     @PluginImpl.send_typing
+    @PluginImpl.save_data
     def get_action(self, update, context):
         response = """
         Please consider donating to support the development and upkeep of this bot.
