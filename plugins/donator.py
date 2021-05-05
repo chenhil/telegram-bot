@@ -12,12 +12,13 @@ class Donator(PluginImpl):
         response = """
         Donation List
         1. @FixmerT - $511 (0.3 eth)
-        2. @i123sb - $75 cashapp
-        3. @ScrubMasterAsh - $36 cashapp
-        4. @icahnn  - $35 cashapp
-        5. @GQvisions - $15 cashapp
+        2. @ScrubMasterAsh - $86 cashapp
+        3. @icahnn  - $76 cashapp
+        4. @i123sb - $75 cashapp
+        5. @GQvisions - $40 cashapp
         6. @ldealized - $10 cashapp
-        7. @Karan - $1 cashapp
+        7. @joeystackspips - $2 eth
+        8. @Karan - $1 cashapp
         """
         print(response)
 
