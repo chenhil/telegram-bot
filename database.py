@@ -17,7 +17,7 @@ class Database:
             chat = { 
                 'id': {'S': str(chatObj.id)},
                 'type': {'S': chatObj.type},
-                'username': {'S': chatObj.username},
+                'username': {'S': chatObj.username if chatObj.username != None else ""},
                 'first_name': {'S': chatObj.first_name}
             }
         else:
@@ -32,8 +32,8 @@ class Database:
             'from': {'M': { 
                 'id': {'S': str(fromObj.id)},
                 'first_name': {'S': fromObj.first_name},
-                'username': {'S': fromObj.username},
-                'language_code': {'S': fromObj.language_code}
+                'username': {'S': fromObj.username if fromObj.username != None else ""},
+                'language_code': {'S': fromObj.language_code if fromObj.language_code != None else ""}
             }},
             'chat': {'M': chat},
             'date': {'S': str(date)},
