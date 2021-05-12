@@ -9,7 +9,6 @@ from datetime import datetime, time
 from pytz import timezone
 
 from api.stocksg import YahooStocksG
-from api.count import count
 
 # US_MARKET times in seconds
 US_EASTERN_TIMEZONE = timezone('US/Eastern')

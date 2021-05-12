@@ -3,23 +3,20 @@ import requests
 import json
 
 class CoinPaprika():
-    Coins = dict()
-
     def __init__(self):
         self.baseUrl = 'https://api.coinpaprika.com/v1/'
-        if len(self.Coins) == 0:
-            self._getAllCoins()
     
     def getTweets(self, symbol):
-        symbol = self.Coins[symbol]
         api_url = f'{self.baseUrl}coins/{symbol}/twitter'
         return self._request(api_url)
 
-    def _getAllCoins(self):
+    def getCoinList(self):
+        coins = dict()
         api_url = f'{self.baseUrl}coins'
         response = self._request(api_url)
         for coin in response:
-            self.Coins[coin['symbol']] = coin['id']
+            coins[coin['symbol']] = coin['id']
+        return coins
 
     def _request(self, url):
         try:

@@ -1,7 +1,6 @@
 from telegram import ParseMode
 from plugin import PluginImpl, Keyword
 from api.coinstat import Coinstats
-from api.count import count
 
 class Asset(PluginImpl):
     def get_cmds(self):

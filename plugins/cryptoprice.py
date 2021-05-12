@@ -2,9 +2,9 @@ from plugin import PluginImpl, Keyword
 from api.coinmarketcap import CoinMarketCap
 from api.coingecko import CoinGecko
 from api.uniswap import Uniswap
+from api.cache import Cache
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
-from api.count import count
 import util.emoji as emo
 import logging, traceback 
 
@@ -48,18 +48,23 @@ class Cryptoprice(PluginImpl):
 
     def _getPrice(self, symbol):
         try:
-            coinSymbols = CoinGecko().getCoinList(symbol)
-            uniswapInfo = Uniswap().getPriceUniswap(symbol.upper())
-            if len(coinSymbols) == 0:
+            coinGeckoList = Cache.get_coingecko_list()
+            uniswapList = Cache.get_uniswap_list()
+            if len(coinGeckoList) == 0:
                 raise Exception("Invalid crypto symbol")
+                
             output = ''
-            for coinSymbol in coinSymbols:
-                responseGecko = CoinGecko().getPrice(coinSymbol['id'])
-                if responseGecko is not None:
-                    output += (self._getMarkdown(responseGecko) + "`via CoinGecko`") + "\n\n"
-            if uniswapInfo is not None:
-                output += (self._getMarkdown(uniswapInfo)
-                + "`via Uniswap`" + "\n\n") 
+            for item in coinGeckoList:
+                if symbol.upper() == item['name'].upper() or symbol.upper() == item['symbol'].upper():
+                    responseGecko = CoinGecko().getPrice(item['id'])
+                    if responseGecko is not None:
+                        output += (self._getMarkdown(responseGecko) + "`via CoinGecko`") + "\n\n"                                    
+
+            for item in uniswapList:
+                if symbol.upper() == item['name'].upper() or symbol.upper() == item['symbol'].upper():
+                    responseUniswap = Uniswap().getPriceUniswap(symbol.upper(), item['name'], item['address'])
+                    output += (self._getMarkdown(responseUniswap) + "`via Uniswap`" + "\n\n") 
+    
             return output
         except Exception as e:
             print(traceback.print_exc())

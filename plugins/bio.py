@@ -1,6 +1,7 @@
 from telegram import ParseMode
 from plugin import PluginImpl
 from api.coingecko import CoinGecko
+from api.cache import Cache
 from datetime import datetime
 import logging, traceback 
 import util.emoji as emo
@@ -20,11 +21,14 @@ class Bio(PluginImpl):
                 parse_mode=ParseMode.MARKDOWN)
             return
         try:
-            coinSymbols = CoinGecko().getCoinList(context.args[0])
+            # coinSymbols = CoinGecko().getCoinList(context.args[0])
+            coinlist = Cache.get_coingecko_list()
+            symbol = context.args[0]
             output = ''
-            for coinSymbol in coinSymbols:
-                coinData = CoinGecko().getCoinData(coinSymbol)
-                output += self._getMarkDownForBio(coinSymbol, coinData) + "\n\n"
+            for item in coinlist:
+                if symbol.upper() == item['name'].upper() or symbol.upper() == item['symbol'].upper():
+                    coinData = CoinGecko().getCoinData(item)
+                    output += self._getMarkDownForBio(item, coinData) + "\n\n"
     
             update.message.bot.send_message(chat_id = update.effective_chat.id, 
             text=output, parse_mode=ParseMode.HTML, disable_web_page_preview=True)

@@ -1,6 +1,7 @@
 from telegram import ParseMode
 from plugin import PluginImpl
 from api.coinpaprika import CoinPaprika
+from api.cache import Cache
 from datetime import datetime
 import util.emoji as emo
 import logging, traceback 
@@ -20,9 +21,10 @@ class Tweet(PluginImpl):
                 parse_mode=ParseMode.MARKDOWN)
             return
         try:
-            tweets = CoinPaprika().getTweets(context.args[0].upper())
+            coinList = Cache.get_coinpaprika_list()
+            tweets = CoinPaprika().getTweets(coinList[context.args[0].upper()])
+
             output = "<b>Newest Tweets for " + context.args[0].upper()+ "</b>\n\n"
-            # output = self._formatTweet(tweets[0][0])
             for tweet in tweets[:5]:
                 output += self._formatTweet(tweet) + "\n\n\n"
             update.message.bot.send_message(chat_id = update.effective_chat.id, 

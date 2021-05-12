@@ -6,11 +6,10 @@ import logging, time
 
 class CoinGecko():
 
-    coinMarketData = dict()
+    # coinMarketData = dict()
 
     def __init__(self):
         self.cg = CoinGeckoAPI()
-
 
     def getPrice(self, symbol):
         responseJson = self.getCoinById(symbol)
@@ -38,23 +37,18 @@ class CoinGecko():
         responseJson["priceLow"] = "$" + prettify(str(response["market_data"]['low_24h']['usd']))
         responseJson["priceHigh"] = "$" + prettify(str(response["market_data"]['high_24h']['usd']))
         responseJson["allTimeHigh"] = "$" + prettify(str(response["market_data"]['ath']['usd']))
-    
         return responseJson
         
-    def getCoinList(self, symbol):
-        data = self.cg.get_coins_list()
-        result = []
-        for item in data:
-            if symbol.upper() == item['name'].upper() or symbol.upper() == item['symbol'].upper():
-                result.append(item)
-        return result
-    
+    def getCoinList(self):
+        return self.cg.get_coins_list()
     
     def getMarketData(self):
         try:
-            CoinGecko().coinMarketData['usd'] = self._chunks(self._getMarketData("usd"), 10)
-            CoinGecko().coinMarketData['btc'] = self._chunks(self._getMarketData("btc"), 10)
-            CoinGecko().coinMarketData['eth'] = self._chunks(self._getMarketData("eth"), 10)
+            coinMarketData = dict()
+            coinMarketData['usd'] = self._chunks(self._getMarketData("usd"), 10)
+            coinMarketData['btc'] = self._chunks(self._getMarketData("btc"), 10)
+            coinMarketData['eth'] = self._chunks(self._getMarketData("eth"), 10)
+            return coinMarketData
         except Exception as e:
             raise e
 

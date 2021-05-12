@@ -5,6 +5,7 @@ import logging
 import importlib
 import re
 from telegram.ext import Updater, InlineQueryHandler, MessageHandler, Filters
+from api.cache import Cache
 from database import Database
 
 
@@ -27,6 +28,8 @@ class Bot():
         except Exception as e:
             exit("ERROR: Bot token not valid")
 
+        Cache.refresh(None)   
+             
         self.job_queue = self.updater.job_queue
         self.dispatcher = self.updater.dispatcher
 
@@ -34,6 +37,9 @@ class Bot():
 
         # Load classes in folder 'plugins'
         self._load_plugins()
+
+        # Refresh cache periodically
+        self._refresh_cache()
 
         # Start the Bot
         self.updater.start_polling()
@@ -43,6 +49,11 @@ class Bot():
         # start_polling() is non-blocking and will stop the bot gracefully.
         self.updater.idle()
 
+    def _refresh_cache(self):
+        try:
+            self.job_queue.run_repeating(Cache.refresh, 300, first=0)
+        except Exception as e:
+            logging.error(e)
 
     def _load_plugins(self):
         for _, _, files in os.walk("./plugins"):

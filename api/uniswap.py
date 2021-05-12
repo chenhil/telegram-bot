@@ -7,11 +7,11 @@ import time, json, logging, requests, json
 
 class Uniswap():
 
-    Tokens = dict()
+    # Tokens = dict()
 
     def __init__(self):
-        if len(self.Tokens) == 0:
-            self._getAllToken()
+        # if len(self.Tokens) == 0:
+        #     self._getAllToken()
         self.graphqlClientUni = GraphQLClient(endpoint="https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2")
         self.graphqlClientEth = GraphQLClient('https://api.thegraph.com/subgraphs/name/blocklytics/ethereum-blocks')
         self.query_eth = '''query blocks {
@@ -56,11 +56,8 @@ class Uniswap():
         }
         '''        
 
-    def getPriceUniswap(self, symbol):
-        if symbol not in self.Tokens:
-            return None
+    def getPriceUniswap(self, symbol, name, address):
 
-        address = self.Tokens[symbol]['address']
         response = {}
         now = int(time.time())
 
@@ -133,17 +130,19 @@ class Uniswap():
         response['percentChange24h'] = var_1d_str
         response['percentChange7d'] = var_7d_str
         response['symbol'] = symbol
-        response['name'] = self.Tokens[symbol]['name']
+        response['name'] = name
     
         return response
 
-    def _getAllToken(self):
+    def getCoinList(self):
         try:
+            # coin = list()
             response = requests.get('https://tokens.coingecko.com/uniswap/all.json')
             response.raise_for_status()
             jsonResponse = json.loads(response.content.decode('utf-8'))
-            for tokeninfo in jsonResponse['tokens']:
-                self.Tokens[tokeninfo['symbol']] = {'address': tokeninfo['address'], 'name': tokeninfo['name']}
+            # return jsonResponse['tokens']
+            # print(jsonResponse)
+            return jsonResponse['tokens']
         except Exception as e:
             logging.error(e)
             raise e

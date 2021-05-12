@@ -1,7 +1,6 @@
 from telegram import ParseMode
 from plugin import PluginImpl, Keyword
 from api.upcoming import Upcoming as News
-from api.count import count
 
 class Upcoming(PluginImpl):
     def get_cmds(self):

@@ -3,8 +3,8 @@ from plugin import PluginImpl
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
 from api.coingecko import CoinGecko
+from api.cache import Cache
 from uuid import uuid4
-from api.count import count
 import logging
 import decimal
 
@@ -21,8 +21,6 @@ class Index(PluginImpl):
     @PluginImpl.send_typing
     @PluginImpl.save_data
     def get_action(self, update, context):
-        # Needs to be moved into a cache
-        CoinGecko().getMarketData()
 
         context.chat_data['index'] = 'usd'
         context.chat_data['page'] = 0
@@ -100,7 +98,8 @@ class Index(PluginImpl):
 
     def _getMarkdown(self, indexValue, pageValue, timeframeValue):
         output = str('```') + "\n" + "Current Currency: {}".format(indexValue.upper()) + "\n" + self._formatRow("#", "Coin", "Price", timeframeValue+"%") + "\n"
-        data = CoinGecko().coinMarketData[indexValue][pageValue] 
+        marketData = Cache().get_coingecko_marketlist()
+        data = marketData[indexValue][pageValue] 
         percentChange = 'price_change_percentage_{}_in_currency'.format(timeframeValue)
         count = (10 * pageValue)
         for item in data:

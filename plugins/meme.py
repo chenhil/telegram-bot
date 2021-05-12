@@ -1,6 +1,5 @@
 from telegram import ParseMode
 from plugin import PluginImpl
-from api.count import count
 from api.s3 import S3
 import random
 

@@ -1,6 +1,5 @@
 from telegram import ParseMode
 from plugin import PluginImpl, Keyword
-from api.count import count
 import util.emoji as emo
 import random
 
