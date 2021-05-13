@@ -23,15 +23,42 @@ class CoinGecko():
         responseJson["name"] = response['name'].upper()
         responseJson['price'] = "$"+prettify(str(response["market_data"]['current_price']['usd']))
         responseJson["marketCap"] = millify(response["market_data"]['market_cap']['usd'], precision = 2)
+
+        # 1 hour percentage change
         if len(response["market_data"]["price_change_percentage_1h_in_currency"]) == 0 or "usd" not in response["market_data"]["price_change_percentage_1h_in_currency"]:
             responseJson['percentChange1h'] = "?"
         else: 
             responseJson['percentChange1h'] = str(round(response["market_data"]["price_change_percentage_1h_in_currency"]["usd"], 2))+ "%"
-        responseJson['percentChange24h'] = str(round(response["market_data"]["price_change_percentage_24h"], 2))+ "%"
-        responseJson['percentChange7d'] = str(round(response["market_data"]["price_change_percentage_7d"], 2))+ "%"
-        responseJson["priceLow"] = "$" + prettify(str(response["market_data"]['low_24h']['usd']))
-        responseJson["priceHigh"] = "$" + prettify(str(response["market_data"]['high_24h']['usd']))
-        responseJson["allTimeHigh"] = "$" + prettify(str(response["market_data"]['ath']['usd']))
+
+        # 24 hour percentage change
+        if len(response["market_data"]["price_change_percentage_24h_in_currency"]) == 0 or "usd" not in response["market_data"]["price_change_percentage_24h_in_currency"]:
+            responseJson['percentChange24h'] = "?"
+        else:
+            responseJson['percentChange24h'] = str(round(response["market_data"]["price_change_percentage_24h_in_currency"]["usd"], 2))+ "%"
+
+        # 7 day percentage change
+        if len(response["market_data"]["price_change_percentage_7d_in_currency"]) == 0 or "usd" not in response["market_data"]["price_change_percentage_7d_in_currency"]:
+            responseJson['percentChange7d'] = "?"   
+        else: 
+            responseJson['percentChange7d'] = str(round(response["market_data"]["price_change_percentage_7d_in_currency"]["usd"], 2))+ "%"
+
+        # 24 hour low
+        if len(response["market_data"]["low_24h"]) == 0 or "usd" not in response["market_data"]["low_24h"]:
+            responseJson["priceLow"] = "?"
+        else:
+            responseJson["priceLow"] = "$" + prettify(str(response["market_data"]['low_24h']['usd']))
+        
+        # 24 hour high
+        if len(response["market_data"]["high_24h"]) == 0 or "usd" not in response["market_data"]["high_24h"]:
+            responseJson["priceHigh"] = "?"
+        else:
+            responseJson["priceHigh"] = "$" + prettify(str(response["market_data"]['high_24h']['usd']))
+        
+        # All time high data
+        if len(response["market_data"]["ath"]) == 0 or "usd" not in response["market_data"]["ath"]:
+            responseJson["allTimeHigh"] = "?"
+        else:
+            responseJson["allTimeHigh"] = "$" + prettify(str(response["market_data"]['ath']['usd']))
         return responseJson
         
     def getCoinList(self):
