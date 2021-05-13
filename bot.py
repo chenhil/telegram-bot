@@ -4,6 +4,7 @@ import uuid
 import logging
 import importlib
 import re
+import datetime
 from telegram.ext import Updater, InlineQueryHandler, MessageHandler, Filters
 from api.cache import Cache
 from database import Database
@@ -51,7 +52,8 @@ class Bot():
 
     def _refresh_cache(self):
         try:
-            self.job_queue.run_repeating(Cache.refresh, 300, first=0)
+            t = datetime.time(10, 00, 00, 000000)
+            self.job_queue.run_daily(Cache.refresh, t)
         except Exception as e:
             logging.error(e)
 
