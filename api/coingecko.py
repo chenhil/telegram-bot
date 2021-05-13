@@ -2,12 +2,7 @@ from pycoingecko import CoinGeckoAPI
 from millify import millify, prettify
 import logging, time
 
-
-
 class CoinGecko():
-
-    # coinMarketData = dict()
-
     def __init__(self):
         self.cg = CoinGeckoAPI()
 
