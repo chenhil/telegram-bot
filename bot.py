@@ -40,7 +40,7 @@ class Bot():
         self._load_plugins()
 
         # Refresh cache periodically
-        self._refresh_cache()
+        # self._refresh_cache()
 
         # Start the Bot
         self.updater.start_polling()
