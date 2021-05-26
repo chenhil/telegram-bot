@@ -62,7 +62,11 @@ class CoinGecko():
         return responseJson
         
     def getCoinList(self):
-        return self.cg.get_coins_list()
+        try:
+            return self.cg.get_coins_list()
+        except Exception as e:
+            logging.error(e)
+            raise e
     
     def getMarketData(self):
         try:

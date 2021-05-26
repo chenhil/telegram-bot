@@ -23,20 +23,38 @@ class Cache(object):
 
     @staticmethod
     def refresh_coingecko_coin_list():
-        Cache.cg_coinlist = CoinGecko().getCoinList()
+        # Cache.cg_coinlist = CoinGecko().getCoinList()
+        try: 
+            coinlist = CoinGecko().getCoinList()
+            Cache.cg_coinlist = coinlist
+        except Exception as e:
+            logging.error("Unable to refresh coingecko coinlist", e)
+
 
     @staticmethod
     def refresh_coinpaprika_coin_list():
-        Cache.paprika_coinlist = CoinPaprika().getCoinList()
+        try:
+            coinlist = CoinPaprika().getCoinList()
+            Cache.paprika_coinlist = coinlist
+        except Exception as e:
+            logging.error("Unable to refresh coinpaprika coinlist", e)        
 
     @staticmethod
     def refresh_uniswap_coin_list():
-        Cache.uniswap_coinlist = Uniswap().getCoinList()        
+        # Cache.uniswap_coinlist = Uniswap().getCoinList()     
+        try:
+            coinlist = Uniswap().getCoinList()     
+            Cache.uniswap_coinlist = coinlist
+        except Exception as e:
+            logging.error("Unable to refresh uniswap coinlist", e)               
 
     @staticmethod
     def refresh_coingecko_market_list():
-        Cache.cg_coinMarketList = CoinGecko().getMarketData()       
-
+        try:
+            coinlist = CoinGecko().getMarketData() 
+            Cache.cg_coinMarketList = coinlist
+        except Exception as e:
+            logging.error("Unable to refresh coingecko marketdata", e)      
 
     @staticmethod
     def get_coingecko_list():
