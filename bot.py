@@ -52,8 +52,9 @@ class Bot():
 
     def _refresh_cache(self):
         try:
-            t = datetime.time(10, 00, 00, 000000)
-            self.job_queue.run_daily(Cache.refresh, t)
+            # t = datetime.time(10, 00, 00, 000000)
+            # self.job_queue.run_daily(Cache.refresh, t)
+            self.job_queue.run_repeating(Cache.refresh, 300, first=0)
         except Exception as e:
             logging.error(e)
 
