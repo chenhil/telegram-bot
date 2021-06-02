@@ -89,9 +89,11 @@ class Uniswap():
         json_resp_uni = json.loads(res_uni_query)
 
         try:
-            per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH'])
-        except KeyError:  
+            per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
+            # per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH'])
+        except Exception:  
             last_block_indexed = str(res_uni_query).split('indexed up to block number ')[1][0:8]
+            
             query_uni_updated = self.query_uni.replace("CONTRACT", address) \
                 .replace("NUMBER_T1", str(block_from_7d)) \
                 .replace("NUMBER_T2", str(block_from_1d)) \
@@ -99,21 +101,35 @@ class Uniswap():
                 .replace("NUMBER_TNOW", str(last_block_indexed))
             res_uni_query = self.graphqlClientUni.execute(query_uni_updated)
             json_resp_uni = json.loads(res_uni_query)
-            per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH'])
+            per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
+            # per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH'])
 
-        # per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH'])
-        per_eth_1d = float(json_resp_uni['data']['t2']['derivedETH'])
-        per_eth_1h = float(json_resp_uni['data']['t3']['derivedETH'])
-        per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
+        try:
+            per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH']) if 'derivedETH' in json_resp_uni['data']['t1'] else 0.0
+        except TypeError:
+            per_eth_7d = None
+        try:
+            per_eth_1d = float(json_resp_uni['data']['t2']['derivedETH']) if 'derivedETH' in json_resp_uni['data']['t2'] else 0.0
+        except TypeError:
+            per_eth_1d = None
+        try:
+            per_eth_1h = float(json_resp_uni['data']['t3']['derivedETH']) if 'derivedETH' in json_resp_uni['data']['t3'] else 0.0
+        except TypeError:
+            per_eth_1h = None
+
+        # per_eth_1d = float(json_resp_uni['data']['t2']['derivedETH'])
+        # per_eth_1h = float(json_resp_uni['data']['t3']['derivedETH'])
+        # per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH']
+        # )
         eth_price_7d = float(json_resp_uni['data']['b1']['ethPrice'])
         eth_price_1d = float(json_resp_uni['data']['b2']['ethPrice'])
         eth_price_1h = float(json_resp_uni['data']['b3']['ethPrice'])
         eth_price_now = float(json_resp_uni['data']['bnow']['ethPrice'])
 
-        price7dUsd = per_eth_7d * eth_price_7d
-        price1dUsd = per_eth_1d * eth_price_1d
-        price1hUsd = per_eth_1h * eth_price_1h
-        priceNowUsd = per_eth_now * eth_price_now
+        price7dUsd = per_eth_7d * eth_price_7d if per_eth_7d is not None else None
+        price1dUsd = per_eth_1d * eth_price_1d if per_eth_1d is not None else None
+        price1hUsd = per_eth_1h * eth_price_1h if per_eth_1h is not None else None
+        priceNowUsd = per_eth_now * eth_price_now if per_eth_now is not None else None
 
         var_7d = round(float(((priceNowUsd - price7dUsd) / priceNowUsd) * 100), 2)
         var_7d_str = str(var_7d) + "%" if var_7d > 0 else str(var_7d) + "%"

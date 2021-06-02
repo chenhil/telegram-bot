@@ -62,9 +62,11 @@ class Cryptoprice(PluginImpl):
 
             for item in uniswapList:
                 if symbol.upper() == item['name'].upper() or symbol.upper() == item['symbol'].upper():
-                    responseUniswap = Uniswap().getPriceUniswap(symbol.upper(), item['name'], item['address'])
-                    output += (self._getMarkdown(responseUniswap) + "`via Uniswap`" + "\n\n") 
-    
+                    try:
+                        responseUniswap = Uniswap().getPriceUniswap(symbol.upper(), item['name'], item['address'])
+                        output += (self._getMarkdown(responseUniswap) + "`via Uniswap`" + "\n\n") 
+                    except Exception as e:
+                        logging.error(e) 
             return output
         except Exception as e:
             print(traceback.print_exc())
