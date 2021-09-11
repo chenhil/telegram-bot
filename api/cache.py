@@ -58,10 +58,14 @@ class Cache(object):
 
     @staticmethod
     def get_coingecko_list():
-        return Cache.cg_coinlist
+        if not Cache.cg_coinlist:
+            Cache.refresh_coingecko_market_list()
+        return Cache.cg_coinlist 
 
     @staticmethod
     def get_coinpaprika_list():
+        if not Cache.paprika_coinlist:
+            Cache.refresh_coinpaprika_coin_list()
         return Cache.paprika_coinlist
 
     @staticmethod
@@ -70,4 +74,6 @@ class Cache(object):
 
     @staticmethod
     def get_uniswap_list():
+        if not Cache.uniswap_coinlist:
+            Cache.refresh_uniswap_coin_list()
         return Cache.uniswap_coinlist
