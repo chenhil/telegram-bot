@@ -35,7 +35,8 @@ class Cryptoprice(PluginImpl):
             reply_markup=self._keyboard_stats(context.args[0]))
         except Exception as e:
             print(traceback.print_exc())
-            return self.handle_error(f"Error. Invalid symbol {context.args[0].upper()} ", update)
+
+            return self.handle_error(f"Error. {e}", update)
 
     def get_usage(self):
         return f"`/{self.get_cmds()[0]} <ticker>`\n"
