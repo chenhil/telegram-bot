@@ -20,6 +20,7 @@ graphqlclient = "*"
 python-graphql-client = "*"
 web3 = "*"
 py-solc = "*"
+requests-html = "*"
 
 [dev-packages]
 
